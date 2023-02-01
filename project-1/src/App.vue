@@ -135,7 +135,6 @@ const display=(disp)=>{
 </nav>
 <!-- mainnnnnn -->
 <div :class="main===1?'':'hidden'"> 
-   
   <div class="block text-gray-700 text-center">
   <h1 class="pt-10 font-extrabold md:text-8xl dark:text-white sm:text-4xl pt-52">Remwords</h1>
   <button @click="display(1)" class="text-white bg-emerald-500 hover:bg-emerald-700 focus:ring-4
@@ -172,7 +171,7 @@ const display=(disp)=>{
 </div>
 <!-- cate-->
 <div :class="category===1?'':'hidden'"> 
-  <h1>category</h1>
+  <!-- เขียนเฉพาะใน div -->
 </div>
 <!-- theme  -->
  </div>
