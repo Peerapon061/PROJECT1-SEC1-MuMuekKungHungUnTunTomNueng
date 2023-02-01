@@ -27,7 +27,7 @@ const makewords = (word, meaning) => {
       }
     }
 }
-var darks=ref(1)
+var darks=ref(0)
 const themes=()=>{
 if(darks.value===0){
     darks.value=1
@@ -93,9 +93,9 @@ const display=(disp)=>{
     <!-- theme -->
     <div :class="darks===0?'dark':''" class="font-mali ">
         <!-- nav -->
-        <div class=" h-screen dark:bg-gray-700 ">
+        <div class=" h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r bg-gradient-to-r from-slate-500 to-yellow-100">
     <div >
-<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 ">
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900" :class="main===1?'hidden':''">
   <div class=" flex flex-wrap items-center justify-between mx-auto">
     <a href="#" class="flex items-center" @click="display(0)">
         <img src="./IMG/LOGO.png" class="h-10 mr-3 sm:h-14" alt=" Logo" />
@@ -135,21 +135,28 @@ const display=(disp)=>{
 </nav>
 <!-- mainnnnnn -->
 <div :class="main===1?'':'hidden'"> 
-  <h1>main</h1>
+   
+  <div class="block text-gray-700 text-center">
+  <h1 class="pt-10 font-extrabold md:text-8xl dark:text-white sm:text-4xl pt-52">Remwords</h1>
+  <button @click="display(1)" class="text-white bg-emerald-500 hover:bg-emerald-700 focus:ring-4
+ focus:ring-emerald-900 font-medium rounded-lg text-sm px-5 py-2.5 
+ mr-2 mb-2 dark:bg-blue-300 dark:hover:bg-blue-500 focus:outline-none
+  dark:focus:ring-blue-800 mt-10 ml-10">START</button>
+</div>
 </div>
 <!-- add -->
   </div>
-    <div class=" flex justify-center mt-4 " :class="add===1?'':'hidden'">
+    <div class=" flex justify-center mt-16 " :class="add===1?'':'hidden'">
     <div>
         <label class="dark:text-white">คำศัพท์</label>
-        <input type="text" class="border-b-2 ml-2 dark:bg-gray-700 dark:text-gray-100" v-model="word" placeholder="word....">
+        <input type="text" class="border-b-2 ml-2 dark:bg-gray-700 dark:text-gray-100 rounded-2xl" v-model="word" placeholder=" word....">
         <br>
         <br>
         <label class="dark:text-white">คำแปล</label>
-        <input type="text" class="border-b-2 ml-2 dark:bg-gray-700 dark:text-gray-100" v-model="meaning" placeholder="meaning...">
+        <input type="text" class="border-b-2 ml-2 dark:bg-gray-700 dark:text-gray-100 rounded-2xl" v-model="meaning" placeholder=" meaning...">
         <br>
-        <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4
- focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 
+        <button class="text-white bg-emerald-500 hover:bg-emerald-700 focus:ring-4
+ focus:ring-emerald-900 font-medium rounded-lg text-sm px-5 py-2.5 
  mr-2 mb-2 dark:bg-blue-300 dark:hover:bg-blue-500 focus:outline-none
   dark:focus:ring-blue-800 mt-10 ml-10" @click="makewords(word, meaning)">บันทึกคำศัพท์</button>
     </div>
