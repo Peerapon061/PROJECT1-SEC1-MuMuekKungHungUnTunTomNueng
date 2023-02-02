@@ -58,6 +58,8 @@ const display=(disp)=>{
     category.value=0
   }
   if(disp===1){
+    var audio = new Audio('./sound/button-11.mp3')
+    audio.play()
     main.value=0
     add.value=1
     show.value=0
@@ -93,7 +95,7 @@ const display=(disp)=>{
     <!-- theme -->
     <div :class="darks===0?'dark':''" class="font-mali ">
         <!-- nav -->
-        <div class=" h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r bg-gradient-to-r from-slate-500 to-yellow-100">
+        <div class=" h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50">
     <div >
 <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900" :class="main===1?'hidden':''">
   <div class=" flex flex-wrap items-center justify-between mx-auto">
@@ -123,7 +125,7 @@ const display=(disp)=>{
         </li>
         <li>
             <div class="flex">
-                <h1 class="mr-4 font-extrabold text-emerald-500">THEME :</h1>
+                <h1 class="mr-4 font-extrabold text-emerald-500 dark:text-blue-500">THEME :</h1>
             <div class="ml-0" @click="themes()" :class="darks===1?'hidden':''"><iconmoon></iconmoon> </div>
             <div class="ml-0" @click="themes()" :class="darks===0?'hidden':''"><iconsun></iconsun> </div>
         </div>
@@ -136,7 +138,8 @@ const display=(disp)=>{
 <!-- mainnnnnn -->
 <div :class="main===1?'':'hidden'"> 
   <div class="block text-gray-700 text-center">
-  <h1 class="pt-10 font-extrabold md:text-8xl dark:text-white sm:text-4xl pt-52">Remwords</h1>
+  
+  <h1 class="pt-10 font-extrabold md:text-8xl dark:text-white sm:text-8xl pt-52">Remwords</h1>
   <button @click="display(1)" class="text-white bg-emerald-500 hover:bg-emerald-700 focus:ring-4
  focus:ring-emerald-900 font-medium rounded-lg text-sm px-5 py-2.5 
  mr-2 mb-2 dark:bg-blue-300 dark:hover:bg-blue-500 focus:outline-none
@@ -161,9 +164,26 @@ const display=(disp)=>{
     </div>
    </div>
    <!--show -->
-
    <div :class="show===1?'':'hidden'"> 
-  <h1>show</h1>
+    <div>
+  <table class="center ml-auto mr-auto table-auto w-full">
+    <tr class="bg-gray-50 border-b-2 border-gray-400 dark:bg-gray-900">
+      <th class="text-gray-700 dark:text-gray-400">#No.</th>
+      <th class="text-gray-700 dark:text-gray-400">Word</th>
+      <th class="text-gray-700 dark:text-gray-400">Meaning</th>
+    </tr>
+    <tr v-for="(wordlist,index) in allword" :class="index%2===0?'bg-gradient-to-r from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 dark:bg-gradient-to-r ':'bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 dark:bg-gradient-to-l'" >
+      <td class="text-gray-700 dark:text-gray-400 text-center p-3 border-red-700">{{ index+1 }}</td>
+      <td class="text-gray-700 dark:text-gray-400 text-center p-3">{{ wordlist.word}}</td>
+      <td class="text-gray-700 dark:text-gray-400 text-center p-3">{{ wordlist.meaning }}</td>
+    </tr>
+  </table>
+    <!-- <ul>
+    <li v-for="word in allword">
+      </div>
+    </li>
+  </ul> -->
+  </div>
 </div>
 <!-- game -->
 <div :class="game===1?'':'hidden'"> 
