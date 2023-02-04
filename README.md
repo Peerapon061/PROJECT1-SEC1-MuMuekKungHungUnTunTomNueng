@@ -4,3 +4,6 @@
 https://www.figma.com/file/xiBD1Q0DrmZ4nSlYWsfyQJ/DraftVocabularyApp?node-id=0%3A1&t=mNdvR3YGeA9BCgp1-0
 
 # สัปดาห์ที่ 3 (1/2/2566)
+กลุ่มเราได้ทำการแบ่งงานในแต่ละฟังก์ชั่นให้สามชิกกลุ่มไปจัดการ
+
+# สัปดาห์ที่ 4 (4/2/2566)
