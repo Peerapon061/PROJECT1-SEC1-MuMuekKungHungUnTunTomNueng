@@ -3,26 +3,32 @@ import {ref} from 'vue'
 import {myword} from'./makeword.js/'
 import iconmoon from './components/icons/TypcnWeatherNight.vue'
 import iconsun from './components/icons/TypcnWeatherSunny.vue'
+import 'tw-elements';
+let word=[]
 let allword = ref([])
 const findword=(word)=>{
  return allword.value.filter((x)=>x.word===word)
 }
 const makewords = (word, meaning) => {
     if (word === undefined || word === null || word === '' || meaning === undefined || meaning === null || meaning === '') {
-        alert("กรุณากรอกข้อมูลให้ครบ")
+        notnull.value=1
+        setTimeout(() => {  notnull.value=0 }, 4500);
     } else {
       if(allword.value.length===0){
         let x=new myword(word,meaning)
         allword.value.push(x)
-        alert("เพิ่มคำศัพท์สำเร็จ")
+        addcomplete.value=1
+        setTimeout(() => {  addcomplete.value=0 }, 4500);
       }else{
         let check=findword(word)
         if(check.length==0){
           let x=new myword(word,meaning)
           allword.value.push(x)
-          alert("เพิ่มคำศัพท์สำเร็จ")
+          addcomplete.value=1
+          setTimeout(() => {  addcomplete.value=0 }, 4500);
         }else{
-          alert("มีคำศัพท์นี้อยู่เเล้ว")
+          nocomplete.value=1
+         setTimeout(() => {  nocomplete.value=0 }, 4500);
         }
       }
     }
@@ -48,6 +54,9 @@ var add=ref(0)
 var show=ref(0)
 var game=ref(0)
 var category=ref(0)
+var addcomplete=ref(0)
+var nocomplete=ref(0)
+var notnull=ref(0)
 
 const display=(disp)=>{
   if(disp===0){
@@ -111,16 +120,16 @@ const display=(disp)=>{
     <div class=" w-full md:block md:w-auto " :class="hid===0?'hidden':''" >
       <ul class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
        
-        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(1)">
-          เพิ่มคำศัพท์
+        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(1)" :class="add===1?'sm:dark:bg-slate-50 sm:rounded-lg  sm:bg-indigo-100':''">
+          เพิ่มคำศัพท์ 
         </li>
-        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(2)">
+        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(2)" :class="show===1?'sm:dark:bg-slate-50 sm:rounded-lg sm:bg-indigo-100':''">
           แสดงคำศัพท์
         </li>
-        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(3)">
+        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(4)" :class="category===1?'sm:dark:bg-slate-50 sm:rounded-lg sm:bg-indigo-100':''">
           หมวดหมู่
         </li>
-        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer" @click="display(4)">
+        <li class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent cursor-pointer " @click="display(3)" :class="game===1?'sm:dark:bg-slate-50 sm:rounded-lg sm:bg-indigo-100':''">
           ทายคำศัพท์
         </li>
         <li>
@@ -148,6 +157,31 @@ const display=(disp)=>{
 </div>
 <!-- add -->
   </div>
+  <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" :class="addcomplete===1?'':'hidden'">
+  <div class="flex">
+    <div class="py-1"><svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+    <div>
+      <p class="font-bold">เพิ่มคำศัพท์สำเร็จ</p>
+    </div>
+  </div>
+</div>
+<div class="bg-red-300 border-t-4 border-red-500 rounded-b text-red-800 px-4 py-3 shadow-md" :class="nocomplete===1?'':'hidden'">
+  <div class="flex">
+    <div class="py-1"><svg class="fill-current h-6 w-6 text-red-700 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+    <div>
+      <p class="font-bold">เพิ่มคำศัพท์ไม่สำเร็จ</p>
+      <p class="text-sm">เนื่องจากมีคำศัพท์นี้อยู่เเล้ว</p>
+    </div>
+  </div>
+</div>
+<div class="bg-yellow-100 border-t-4 border-yellow-300 rounded-b text-red-800 px-4 py-3 shadow-md" :class="notnull===1?'':'hidden'">
+  <div class="flex">
+    <div class="py-1"><svg class="fill-current h-6 w-6 text-yellow-600 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+    <div>
+      <p class="font-bold">กรุณากรอกข้อมูลให้ครบ</p>
+    </div>
+  </div>
+</div>
     <div class=" flex justify-center mt-16 " :class="add===1?'':'hidden'">
     <div>
         <label class="dark:text-white">คำศัพท์</label>
@@ -172,7 +206,7 @@ const display=(disp)=>{
       <th class="text-gray-700 dark:text-gray-400">Word</th>
       <th class="text-gray-700 dark:text-gray-400">Meaning</th>
     </tr>
-    <tr v-for="(wordlist,index) in allword" :class="index%2===0?'bg-gradient-to-r from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 dark:bg-gradient-to-r ':'bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800 dark:bg-gradient-to-l'" >
+    <tr v-for="(wordlist,index) in allword" :class="index%2===0?'bg-gradient-to-r from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r ':'bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-l'" >
       <td class="text-gray-700 dark:text-gray-400 text-center p-3 border-red-700">{{ index+1 }}</td>
       <td class="text-gray-700 dark:text-gray-400 text-center p-3">{{ wordlist.word}}</td>
       <td class="text-gray-700 dark:text-gray-400 text-center p-3">{{ wordlist.meaning }}</td>
@@ -187,11 +221,12 @@ const display=(disp)=>{
 </div>
 <!-- game -->
 <div :class="game===1?'':'hidden'"> 
-  <h1>game</h1>
+ 
 </div>
 <!-- cate-->
 <div :class="category===1?'':'hidden'"> 
-  <!-- เขียนเฉพาะใน div -->
+
+
 </div>
 <!-- theme  -->
  </div>
