@@ -3,6 +3,7 @@ import { ref, computed } from "vue";
 import { myword } from "./makeword.js/";
 import iconmoon from "./components/icons/TypcnWeatherNight.vue";
 import iconsun from "./components/icons/TypcnWeatherSunny.vue";
+import iconBooks from "./components/icons/SimpleLineIconsBookOpen.vue"
 import "tw-elements";
 import { game } from "./game.js";
 let datas = {};
@@ -222,15 +223,30 @@ const DeleteIcon = ref(false);
 const DeleteIconShow = () => {
   DeleteIcon.value = !DeleteIcon.value;
 };
+const Deletefunction=(event)=>{
+  categoryAll.value =  categoryAll.value.filter(category=>category.nameNote!==event.target.id)
+}
+
 
 let nameNote = "";
 const checkedActivities = computed(() => {
-  return allword.value.filter((wordSelected) => wordSelected.selected);
+  return allword.value.filter((wordSelected) => wordSelected.selected).length;
 });
 const toggleModal = (id) => {
   showModal.value["window"] = !showModal.value["window"];
   showModal.value[id] = !showModal.value[id];
+  
 };
+const categorySelected = ref("");
+const NameNoteTyping = ref();
+const CheckAlready =()=>{
+  
+  nameNote=categorySelected.value
+   categorySelected.value=""
+  
+}
+
+
 
 const StatusEdit = ref(false);
 const toggleEdit = () => {
@@ -244,13 +260,6 @@ const ListVocabByCategory = (nameNote_) => {
     .filter((category) => category.nameNote === nameNote_)
     .map((x) => x.vocabs)
     .flat(); //งง
-  console.log(categoryAll.value);
-  console.log(
-    categoryAll.value
-      .filter((category) => category.nameNote === nameNote_)
-      .map((x) => x.vocabs)
-  );
-  console.log(ListVocab.value);
 };
 
 const AddToCatagories = () => {
@@ -261,19 +270,17 @@ const AddToCatagories = () => {
     let obj = categoryAll.value.find((x) => x.nameNote === nameNote);
     obj.vocabs = allword.value.filter((y) => y.selected);
 
-    console.log(categoryAll.value.find((x) => x.nameNote === nameNote));
-    console.log(obj.vocabs);
+    nameNote=''
   } else {
     categoryAll.value.push({
       nameNote: nameNote,
-      vocabs: allword.value.filter((wordSelected) => wordSelected.selected),
+      vocabs: allword.value.filter((wordSelected) => wordSelected.selected ),
     });
     console.log(categoryAll.value);
     nameNote = "";
     return categoryAll.value;
   }
 };
-
 //
 </script>
 
@@ -758,13 +765,27 @@ const AddToCatagories = () => {
                 </div>
                 <!--body-->
                 <div id="AddCata" class="relative p-6 flex-auto">
+                  <div class="w-full flex space-x-2"> 
                   <label for="NameNote"> Enter Your Note </label>
                   <input
                     class="border-2 rounded-lg border-slate-100"
                     type="text"
+                   
+                    ref="NameNoteTyping"
                     id="NameNote"
                     v-model.trim="nameNote"
                   />
+                  <span> Your category : </span>
+                  <!-- <select v-show="categoryAll.length===0">  <option disabled value="">category</option> </select> -->
+                  <select  class="border-2 rounded-lg border-slate-100" v-model="categorySelected" @change="CheckAlready" >
+                     
+                    <option disabled value="">Please select one</option>
+                    <option :value="category.nameNote" v-for="(category,index) in categoryAll" :key="index"> {{ category.nameNote }} </option>
+                    
+
+                  </select>
+                </div>
+
                   <div
                     class="bg-slate-200 p-3 m-3 rounded-lg"
                     v-for="word in allword"
@@ -819,19 +840,19 @@ const AddToCatagories = () => {
 
         <div class="flex w-full h-full space-x-3">
           <div
-            class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-800"
+            class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-200 dark:bg-slate-800"
           >
             <button
               @click="toggleModal('AddCata')"
-              :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-800'"
-              class="w-4/5 mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-600/80'"
+              class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
             >
               Add Catagories
             </button>
             <button
-              :class="DeleteIcon ? 'bg-slate-600' : 'bg-red-900'"
+              :class="!DeleteIcon || categoryAll.length===0 ? ' bg-red-600/80 dark:bg-red-900' : 'bg-slate-600'"
               @click="DeleteIconShow"
-              class="w-4/5 bg-red-900 mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
             >
               Delete Catagories
             </button>
@@ -839,7 +860,7 @@ const AddToCatagories = () => {
           <div
             class="flex flex-col relative h-full top-10 m-auto w-4/5 bg-white/30 font-bold"
           >
-            <div class="bg-slate-800 h-12"></div>
+            
             <!-- เพิ่ม เอาคำศัพท์ เก็บเข้า object  -->
             <!-- ทำ modal  -->
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
@@ -847,16 +868,16 @@ const AddToCatagories = () => {
             <div
               class="mt-20 grid grid-cols-4 m-auto w-4/5 justify-center h-4/5"
             >
-              <div v-for="category in categoryAll">
+              <div v-for="(category,index) in categoryAll" :key="category.nameNote">
                 <div
-                  class="flex flex-col justify-between items-center text-2xl w-5/6 h-4/6 lg:w-44 lg:h-56 m-2 bg-gradient-to-r from-gray-400 to-gray-200 hover:drop-shadow-2xl transition duration-300"
+                  class="flex flex-col justify-between items-center text-2xl w-5/6 h-4/6 lg:w-44 lg:h-56 m-2 bg-gradient-to-r from-gray-400 border border-gray-900 to-gray-200 hover:drop-shadow-2xl transition duration-300"
                 >
-                  <div
+                  <div  :id="category.nameNote"
                     :class="DeleteIcon ? 'visible' : 'invisible'"
                     class="w-full flex justify-end"
                   >
-                    <span
-                      class="bg-transparent m text-red-900 h-6 w-6 text-2xl block outline-none focus:outline-none"
+                  <span  @click="Deletefunction($event)" :id="category.nameNote"
+                      class="bg-transparent   text-red-900 h-8 w-9 text-4xl block outline-none focus:outline-none "
                     >
                       ×
                     </span>
@@ -864,9 +885,9 @@ const AddToCatagories = () => {
                   <div>{{ category.nameNote }}</div>
                   <button
                     @click="ListVocabByCategory(category.nameNote)"
-                    class="w-4/5 text-lg bg-zinc-800 mb-10 mx-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-black  mb-10 mx-auto hover:bg-slate-600 hover:text-white font-bold py-2 px-4 rounded"
                   >
-                    View Details
+                    View Details <iconBooks class="ml-2 mt-2"/>
                   </button>
                 </div>
               </div>
