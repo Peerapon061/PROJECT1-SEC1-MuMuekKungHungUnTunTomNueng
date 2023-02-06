@@ -1,29 +1,22 @@
-# project-1
+# เเอพพลิเคชั่นช่วยจำคำศัพท์ Remwords
 
-This template should help get you started developing with Vue 3 in Vite.
+ผู้จัดทำ 
+641305000021  ณัฐณิชา สิรินิพัทธ์กุล   role Dev,infra
+641305000022  ณัฐนนท์ ตั้งจินตวิวัฒน์  role Dev,projectmanager
+641305000041  นายนราวิชญ์ โพธิวัฒน  role Dev,infra
+641305000061  นายพีระพล ศรีวิชชุพงษ์ role Dev,infra
 
-## Recommended IDE Setup
+## สรุปการทำงานในแต่ละ Week 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+### week 1 
+ได้มีการเสนอหาTopic ของ project ที่ทุกคนสนใจเเละร่วมกันกันคัดเลือกไอเดียที่จะนำมาใช้ในการทำ project ครั้งนี้ เเละได้ข้อสรุปว่า ทำเเอพพลิเคชั่นในการจดจำคำศัพท์
+และได้สร้าง sprint 
+### week 2 
+เมื่อเสนอหัวข้อกับ อ.ผ่านเเล้ว ได้ออกเเบบหน้าตาเเละฟังชั่นก์ของโปรเเกรมเเบบเบื้องต้น 
+และได้ออกแบบตัวโปรเเกรมผ่าน FIGMA : https://www.figma.com/file/xiBD1Q0DrmZ4nSlYWsfyQJ/DraftVocabularyApp
 
-## Customize configuration
+### week 3 
+ได้จัดทำระบบต่างๆ-ของโปรเเกรม 
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
 
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
