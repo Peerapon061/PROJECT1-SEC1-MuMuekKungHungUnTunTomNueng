@@ -1,9 +1,29 @@
-# สัปดาห์ที่ 2 (23/1/2566)
-วันนี้กลุ่มเราได้ทำการออกแบบหน้าเว็บผ่านโปรแกรม figma
+# project-1
 
-https://www.figma.com/file/xiBD1Q0DrmZ4nSlYWsfyQJ/DraftVocabularyApp?node-id=0%3A1&t=mNdvR3YGeA9BCgp1-0
+This template should help get you started developing with Vue 3 in Vite.
 
-# สัปดาห์ที่ 3 (1/2/2566)
-กลุ่มเราได้ทำการแบ่งงานในแต่ละฟังก์ชั่นให้สามชิกกลุ่มไปจัดการ
+## Recommended IDE Setup
 
-# สัปดาห์ที่ 4 (4/2/2566)
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
