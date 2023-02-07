@@ -69,7 +69,7 @@ const makewords = (word, meaning) => {
     }
   }
 };
-var darks = ref(0);
+var darks = ref(1);
 const themes = () => {
   if (darks.value === 0) {
     darks.value = 1;
@@ -85,7 +85,6 @@ const hidnev = () => {
     hid.value = 0;
   }
 };
-var main = ref(1);
 var add = ref(false);
 var show = ref(false);
 var gamepage = ref(false);
@@ -99,30 +98,21 @@ var modalgame = ref(false);
 var nextbt = ref(true);
 var showbt = ref(false);
 var result= ref(false)
+var contents=ref(false)
 const display = (disp) => {
-  if (disp === 0) {
-    main.value = 1;
-    add.value = false;
-    show.value = false;
-    gamepage.value = false;
-    category.value = false;
-  }
   if (disp === 1) {
-    main.value = 0;
     add.value = true;
     show.value = false;
     gamepage.value = false;
     category.value = false;
   }
   if (disp === 2) {
-    main.value = 0;
     add.value = false;
     show.value = true;
     gamepage.value = false;
     category.value = false;
   }
   if (disp === 3) {
-    main.value = 0;
     add.value = false;
     show.value = false;
     addcareall();
@@ -130,13 +120,15 @@ const display = (disp) => {
     category.value = false;
   }
   if (disp === 4) {
-    main.value = 0;
     add.value = false;
     show.value = false;
     gamepage.value = false;
     category.value = true;
   }
 };
+const showcontent=()=>{
+  contents.value=!contents.value
+}
 var question = ref([]);
 var answercheck = [];
 var questionshow = [];
@@ -285,8 +277,33 @@ const AddToCatagories = () => {
 </script>
 
 <template>
+  <!-- mainnnnnn -->
+  <div v-show="!contents">
+    <div class="relative flex items-center justify-center h-screen  overflow-hidden">
+      <div class="relative z-30 bg-black bg-opacity-30">
+        <div class=" text-white text-center h-screen w-screen flex flex-col justify-center items-center ">
+            <h1
+              class=" font-extrabold md:text-8xl  sm:text-6xl  font-mali drop-shadow-2xl"
+            >
+              <span class="">Remwords
+          </span>
+          </h1>
+            <button
+              @click="showcontent()"
+              class="font-mali px-4 py-2 w-1/12   rounded-md  hover:-translate-y-1 hover:scale-110  ease-in-out delay-150 duration-300 mt-9  bg-white font-bold  text-white bg-opacity-30 hover:bg-blue-900 drop-shadow-2xl shadow-sm"
+            >
+              START
+            </button>
+            <!-- transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 -->
+          </div>
+  </div>
+  <video autoplay loop muted class="absolute z-10 w-auto min-w-full min-h-full max-w-none">
+    <source src="./video/Network - 45961.mp4" type="video/mp4"  loop autoplay />Your browser does not support the video tag.
+  </video>
+    </div>
+        </div>
   <!-- theme -->
-  <div :class="darks === 0 ? 'dark' : ''" class="font-mali">
+  <div :class="darks === 0 ? 'dark' : ''" class="font-mali" v-show="contents">
     <!-- nav -->
     <div
       class="h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50"
@@ -294,10 +311,10 @@ const AddToCatagories = () => {
       <div>
         <nav
           class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900"
-          :class="main === 1 ? 'hidden' : ''"
+          
         >
           <div class="flex flex-wrap items-center justify-between mx-auto">
-            <a href="#" class="flex items-center" @click="display(0)">
+            <a href="#" class="flex items-center" @click="showcontent()">
               <img src="./IMG/LOGO.png" class="h-10 mr-3 sm:h-14" alt=" Logo" />
               <span
                 class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
@@ -397,23 +414,7 @@ const AddToCatagories = () => {
             </div>
           </div>
         </nav>
-        <!-- mainnnnnn -->
-        <div :class="main === 1 ? '' : 'hidden'">
-          <div class="block text-gray-700 text-center">
-            <h1
-              class="pt-10 font-extrabold md:text-8xl dark:text-white sm:text-6xl pt-52"
-            >
-              Remwords
-            </h1>
-            <button
-              @click="display(1)"
-              class="px-4 py-2 dark:bg-blue-500 dark:text-white rounded-md shadow-sm hover:-translate-y-1 hover:scale-110 dark:hover:bg-indigo-500 ease-in-out delay-150 duration-300 mt-9 dar bg-emerald-500 text-white hover:bg-emerald-700"
-            >
-              START
-            </button>
-            <!-- transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 -->
-          </div>
-        </div>
+        
         <!-- add -->
       </div>
       <div
