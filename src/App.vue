@@ -298,7 +298,7 @@ const AddToCatagories = () => {
           </div>
   </div>
   <video autoplay loop muted class="absolute z-10 w-auto min-w-full min-h-full max-w-none">
-    <source src="./video/Network - 45961.mp4" type="video/mp4"  loop autoplay />Your browser does not support the video tag.
+    <source src="./video/vbg.mp4" type="video/mp4"  loop autoplay />Your browser does not support the video tag.
   </video>
     </div>
         </div>
