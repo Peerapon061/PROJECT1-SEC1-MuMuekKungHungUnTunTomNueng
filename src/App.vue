@@ -4,6 +4,7 @@ import { myword } from "./makeword.js/";
 import iconmoon from "./components/icons/TypcnWeatherNight.vue";
 import iconsun from "./components/icons/TypcnWeatherSunny.vue";
 import iconBooks from "./components/icons/SimpleLineIconsBookOpen.vue"
+import close from './components/icons/GridiconsCross.vue'
 import "tw-elements";
 import { game } from "./game.js";
 let datas = {};
@@ -99,6 +100,7 @@ var nextbt = ref(true);
 var showbt = ref(false);
 var result= ref(false)
 var contents=ref(false)
+var anserlong=ref(false)
 const display = (disp) => {
   if (disp === 1) {
     add.value = true;
@@ -128,6 +130,7 @@ const display = (disp) => {
 };
 const showcontent=()=>{
   contents.value=!contents.value
+  display(1)
 }
 var question = ref([]);
 var answercheck = [];
@@ -191,7 +194,9 @@ const showresault=()=>{
 }
 const ans = ref();
 const nextword = (xsss = null) => {
+  if(xsss.length<85){
   if (currentquestionnum.value === questionshow.length) {
+    anserlong.value=false
     currentquestion.value = questionshow[noword.value];
     useranswer.push(xsss);
     nextbt.value = false;
@@ -200,11 +205,16 @@ const nextword = (xsss = null) => {
     console.log(answercheck);
   } else {
     ans.value = "";
+    anserlong.value=false
     useranswer.push(xsss);
     noword.value++;
     currentquestionnum.value++;
     currentquestion.value = questionshow[noword.value];
   }
+}else{
+ anserlong.value=true
+ ans.value=""
+}
 };
 ////
 // PIN
@@ -290,7 +300,7 @@ const AddToCatagories = () => {
           </h1>
             <button
               @click="showcontent()"
-              class="font-mali px-4 py-2 w-1/12   rounded-md  hover:-translate-y-1 hover:scale-110  ease-in-out delay-150 duration-300 mt-9  bg-white font-bold  text-white bg-opacity-30 hover:bg-blue-900 drop-shadow-2xl shadow-sm"
+              class="font-mali px-4 py-2 w-1/12 sm:w-24 rounded-md  hover:-translate-y-1 hover:scale-110  ease-in-out delay-150 duration-300 mt-9  bg-white font-bold  text-white bg-opacity-30 hover:bg-blue-900 drop-shadow-2xl shadow-sm"
             >
               START
             </button>
@@ -322,19 +332,30 @@ const AddToCatagories = () => {
               >
             </a>
             <div class="md:hidden flex">
-              <button @click="hidnev()" class="mr-3">
-                <svg
+              <label class=" swap swap-rotate">
+  
+  <!-- this hidden checkbox controls the state -->
+  <input type="checkbox" @click="hidnev()"/>
+  
+  <!-- hamburger icon -->
+  <svg 
                   xmlns="http://www.w3.org/2000/svg"
                   width="2em"
                   height="2em"
                   viewBox="0 0 24 24"
+                  class="swap-off fill-current"
                 >
                   <path
                     :fill="darks === 1 ? 'currentColor' : '#ffffff'"
                     d="M21 18h-9v-2h9v2Zm0-5H3v-2h18v2Zm0-5H3V6h18v2Z"
                   ></path>
                 </svg>
-              </button>
+  
+  
+  <!-- close icon -->
+  
+  <close class="swap-on fill-current"></close>
+</label>
             </div>
             <div
               class="w-full md:block md:w-auto"
@@ -516,7 +537,7 @@ const AddToCatagories = () => {
           <br />
           <button
             class="text-white bg-emerald-500 hover:bg-emerald-700 focus:ring-4 focus:ring-emerald-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-300 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-800 mt-10 ml-10"
-            @click="makewords(word, meaning)"
+            @click="makewords(word, meaning)" 
           >
             บันทึกคำศัพท์
           </button>
@@ -638,6 +659,7 @@ const AddToCatagories = () => {
                 v-model="ans"
                 ref="ansss"
               />
+              <p class="text-red-400 flex justify-center items-center mt-4" v-show="anserlong">คำตอบขอบคุณยาวเกินไป</p>
             </div>
 
             <div class="mt-4 mb-10" v-show="result">
