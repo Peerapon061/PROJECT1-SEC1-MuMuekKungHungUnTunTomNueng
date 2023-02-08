@@ -337,7 +337,7 @@ const AddToCatagories = () => {
   <!-- this hidden checkbox controls the state -->
   <input type="checkbox" @click="hidnev()"/>
   
-  <!-- hamburger icon -->
+ 
   <svg 
                   xmlns="http://www.w3.org/2000/svg"
                   width="2em"
@@ -352,7 +352,7 @@ const AddToCatagories = () => {
                 </svg>
   
   
-  <!-- close icon -->
+  
   
   <close class="swap-on fill-current"></close>
 </label>
@@ -581,7 +581,7 @@ const AddToCatagories = () => {
         </div>
       </div>
       <!-- game -->
-      <div class="" v-show="gamepage">
+      <div class="" v-show="gamepage" >
         <div
           class="bg-red-300 border-t-4 border-red-500 rounded-b text-red-800 px-4 py-3 shadow-md"
           v-show="cantstart"
@@ -706,7 +706,7 @@ const AddToCatagories = () => {
       </div>
 
       <!-- category-->
-      <div v-show="category" class="h-2/5 md:h-4/5">
+      <div v-show="category" class="h-2/5 md:h-4/5 sm:hidden">
         <div>
           <div
             v-if="showModal.window"
@@ -717,13 +717,13 @@ const AddToCatagories = () => {
               <!-- คอนเท้นList -->
               <div
                 v-if="showModal.vocab"
-                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none h-auto"
               >
                 <!--header-->
                 <div
                   class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t"
                 >
-                  <h3 class="text-3xl font-semibold">List Vocabulary</h3>
+                  <h3 class="text-xl font-semibold">Vocabularys</h3>
                   <button
                     class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     v-on:click="toggleModal('AddCata')"
@@ -760,15 +760,15 @@ const AddToCatagories = () => {
               <!-- Add cata -->
               <div
                 v-if="showModal.AddCata"
-                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
               >
                 <!--header-->
                 <div
-                  class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t"
+                  class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t "
                 >
                   <h3 class="text-3xl font-semibold">List Vocabulary</h3>
                   <button
-                    class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none "
                     v-on:click="toggleModal('AddCata')"
                   >
                     <span
@@ -779,8 +779,8 @@ const AddToCatagories = () => {
                   </button>
                 </div>
                 <!--body-->
-                <div id="AddCata" class="relative p-6 flex-auto">
-                  <div class="w-full flex space-x-2"> 
+                <div id="AddCata" class="relative p-6 flex-auto h-96">
+                  <div class="w-full flex  space-x-2 "> 
                   <label for="NameNote"> Enter Your Note </label>
                   <input
                     class="border-2 rounded-lg border-slate-100"
@@ -796,13 +796,11 @@ const AddToCatagories = () => {
                      
                     <option disabled value="">Please select one</option>
                     <option :value="category.nameNote" v-for="(category,index) in categoryAll" :key="index"> {{ category.nameNote }} </option>
-                    
-
                   </select>
                 </div>
-
+               <div class="overflow-y-auto h-72 mt-2">
                   <div
-                    class="bg-slate-200 p-3 m-3 rounded-lg"
+                    class="bg-slate-200 p-3 m-3 rounded-lg   "
                     v-for="word in allword"
                     :key="word.word"
                   >
@@ -818,8 +816,8 @@ const AddToCatagories = () => {
 
                     <br />
                   </div>
-
-                  <div>selectWord : {{ checkedActivities }}</div>
+                </div>
+                  <div class="mt-2">selectWord : {{ checkedActivities }}</div>
                 </div>
 
                 <!-- Modal view vocab -->
@@ -853,7 +851,7 @@ const AddToCatagories = () => {
           ></div>
         </div>
 
-        <div class="flex w-full h-full space-x-3">
+        <div class="flex w-full h-full space-x-3 ">
           <div
             class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-200 dark:bg-slate-800"
           >
@@ -862,14 +860,14 @@ const AddToCatagories = () => {
               :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-600/80'"
               class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
             >
-              Add Catagories
+              เพิ่มชุดคำศัพท์
             </button>
             <button
               :class="!DeleteIcon || categoryAll.length===0 ? ' bg-red-600/80 dark:bg-red-900' : 'bg-slate-600'"
               @click="DeleteIconShow"
               class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
             >
-              Delete Catagories
+              ลบชุดคำศัพท์
             </button>
           </div>
           <div
@@ -881,15 +879,15 @@ const AddToCatagories = () => {
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
             <div></div>
             <div
-              class="mt-20 grid grid-cols-4 m-auto w-4/5 justify-center h-4/5"
+              class="mt-20  m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap "
             >
               <div v-for="(category,index) in categoryAll" :key="category.nameNote">
                 <div
-                  class="flex flex-col justify-between items-center text-2xl w-5/6 h-4/6 lg:w-44 lg:h-56 m-2 bg-gradient-to-r from-gray-400 border border-gray-900 to-gray-200 hover:drop-shadow-2xl transition duration-300"
+                  class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl"
                 >
                   <div  :id="category.nameNote"
                     :class="DeleteIcon ? 'visible' : 'invisible'"
-                    class="w-full flex justify-end"
+                    class="w-full flex justify-end "
                   >
                   <span  @click="Deletefunction($event)" :id="category.nameNote"
                       class="bg-transparent   text-red-900 h-8 w-9 text-4xl block outline-none focus:outline-none "
@@ -900,9 +898,9 @@ const AddToCatagories = () => {
                   <div>{{ category.nameNote }}</div>
                   <button
                     @click="ListVocabByCategory(category.nameNote)"
-                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-black  mb-10 mx-auto hover:bg-slate-600 hover:text-white font-bold py-2 px-4 rounded"
+                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-black   mx-auto hover:bg-slate-600 hover:text-white py-2 px-4 rounded-lg "
                   >
-                    View Details <iconBooks class="ml-2 mt-2"/>
+                    แสดงคำศัพท์ <iconBooks class="ml-2 mt-2"/>
                   </button>
                 </div>
               </div>
@@ -914,22 +912,12 @@ const AddToCatagories = () => {
       <!-- ห้ามยุ่ง -->
     </div>
     <!-- theme  -->
-    <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
-  <div class="grid grid-flow-col gap-4">
-    <a class="link link-hover">About us</a> 
-    <a class="link link-hover">Contact</a> 
-    <a class="link link-hover">Jobs</a> 
-    <a class="link link-hover">Press kit</a>
+    <footer class="footer  footer-center bg-base-200 text-base-content  dark:bg-slate-700 dark:text-white"  :class="darks === 0 ? 'dark' : ''">
+  <div class="ml-8 flex ">
+    <a class="link link-hover">How-to-Use</a>
+    <a class="link link-hover">About Us</a>  
   </div> 
-  <div>
-    <div class="grid grid-flow-col gap-4">
-      <a href="https://www.sit.kmutt.ac.th/" target="_blank"><img src="./IMG/sitlogo.png" class="w-11 h-11"></a>
-    </div>
-  </div> 
-  <div>
-    <h1>school of information technology</h1>
-    <p>king mongkut's university of technology thonburi</p>
-  </div>
+  
 </footer>
   </div>
 </template>
