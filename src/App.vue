@@ -388,27 +388,19 @@ const AddToCatagories = () => {
                   ทายคำศัพท์
                 </li>
                 <li>
-                  <div class="flex">
-                    <h1
-                      class="mr-4 font-extrabold text-emerald-500 dark:text-blue-500"
-                    >
-                      THEME :
-                    </h1>
-                    <div
-                      class="ml-0"
-                      @click="themes()"
-                      :class="darks === 1 ? 'hidden' : ''"
-                    >
-                      <iconmoon></iconmoon>
-                    </div>
-                    <div
-                      class="ml-0"
-                      @click="themes()"
-                      :class="darks === 0 ? 'hidden' : ''"
-                    >
-                      <iconsun></iconsun>
-                    </div>
-                  </div>
+
+                    <label class="swap swap-rotate">
+  
+  <!-- this hidden checkbox controls the state -->
+  <input type="checkbox" @click="themes()"/>
+  
+  <!-- sun icon -->
+  
+  <iconsun class="swap-off fill-current"></iconsun>
+  <!-- moon icon -->
+  
+  <iconmoon class="swap-on fill-current"></iconmoon>
+</label>
                 </li>
               </ul>
             </div>
@@ -591,7 +583,7 @@ const AddToCatagories = () => {
             </div>
           </div>
         </div>
-        <div class="flex justify-center mt-10">
+        <div class="flex justify-center  mt-10">
           <label class="mr-1 pt-1 dark:text-white"
             >กรุณาเลือกชุดคำศัพท์ที่ต้องการเล่น :</label
           >
@@ -900,6 +892,23 @@ const AddToCatagories = () => {
       <!-- ห้ามยุ่ง -->
     </div>
     <!-- theme  -->
+    <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
+  <div class="grid grid-flow-col gap-4">
+    <a class="link link-hover">About us</a> 
+    <a class="link link-hover">Contact</a> 
+    <a class="link link-hover">Jobs</a> 
+    <a class="link link-hover">Press kit</a>
+  </div> 
+  <div>
+    <div class="grid grid-flow-col gap-4">
+      <a href="https://www.sit.kmutt.ac.th/" target="_blank"><img src="./IMG/sitlogo.png" class="w-11 h-11"></a>
+    </div>
+  </div> 
+  <div>
+    <h1>school of information technology</h1>
+    <p>king mongkut's university of technology thonburi</p>
+  </div>
+</footer>
   </div>
 </template>
 
