@@ -343,7 +343,7 @@ const AddToCatagories = () => {
                   width="2em"
                   height="2em"
                   viewBox="0 0 24 24"
-                  class="swap-off fill-current"
+                  class="swap-on fill-current"
                 >
                   <path
                     :fill="darks === 1 ? 'currentColor' : '#ffffff'"
@@ -354,7 +354,7 @@ const AddToCatagories = () => {
   
   
   
-  <close class="swap-on fill-current"></close>
+  <close class="swap-off fill-current"></close>
 </label>
             </div>
             <div
@@ -516,6 +516,7 @@ const AddToCatagories = () => {
           </div>
         </div>
       </div>
+      <!-- add -->
       <div class="flex justify-center mt-16" v-show="add">
         <div>
           <label class="dark:text-white">คำศัพท์</label>
@@ -705,8 +706,8 @@ const AddToCatagories = () => {
         </div>
       </div>
 
-      <!-- category-->
-      <div v-show="category" class="h-2/5 md:h-4/5 sm:hidden">
+      <!-- category md-->
+      <div v-show="category" class="md:h-4/5 ">
         <div>
           <div
             v-if="showModal.window"
@@ -760,7 +761,7 @@ const AddToCatagories = () => {
               <!-- Add cata -->
               <div
                 v-if="showModal.AddCata"
-                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
+                class="border-0 rounded-lg shadow-lg relative md:flex md:flex-col w-full bg-white outline-none focus:outline-none sm:w-auto "
               >
                 <!--header-->
                 <div
@@ -780,7 +781,7 @@ const AddToCatagories = () => {
                 </div>
                 <!--body-->
                 <div id="AddCata" class="relative p-6 flex-auto h-96">
-                  <div class="w-full flex  space-x-2 "> 
+                  <div class="w-full md:flex  space-x-2 sm:grid sm:grid-cols-1"> 
                   <label for="NameNote"> Enter Your Note </label>
                   <input
                     class="border-2 rounded-lg border-slate-100"
@@ -798,7 +799,7 @@ const AddToCatagories = () => {
                     <option :value="category.nameNote" v-for="(category,index) in categoryAll" :key="index"> {{ category.nameNote }} </option>
                   </select>
                 </div>
-               <div class="overflow-y-auto h-72 mt-2">
+               <div class="overflow-y-auto h-72 mt-2 sm:h-56">
                   <div
                     class="bg-slate-200 p-3 m-3 rounded-lg   "
                     v-for="word in allword"
@@ -817,7 +818,7 @@ const AddToCatagories = () => {
                     <br />
                   </div>
                 </div>
-                  <div class="mt-2">selectWord : {{ checkedActivities }}</div>
+                  <div class="md:mt-2 ">selectWord : {{ checkedActivities }}</div>
                 </div>
 
                 <!-- Modal view vocab -->
@@ -851,9 +852,9 @@ const AddToCatagories = () => {
           ></div>
         </div>
 
-        <div class="flex w-full h-full space-x-3 ">
+        <div class="flex w-full md:h-full space-x-3 sm:h-auto">
           <div
-            class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-200 dark:bg-slate-800"
+            class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-200 dark:bg-slate-800 sm:hidden"
           >
             <button
               @click="toggleModal('AddCata')"
@@ -871,15 +872,14 @@ const AddToCatagories = () => {
             </button>
           </div>
           <div
-            class="flex flex-col relative h-full top-10 m-auto w-4/5 bg-white/30 font-bold"
+            class="flex flex-col relative h-full top-10 m-auto w-4/5 bg-white/30 font-bold sm:w-full sm:h-[29.5rem]"
           >
             
             <!-- เพิ่ม เอาคำศัพท์ เก็บเข้า object  -->
             <!-- ทำ modal  -->
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
-            <div></div>
             <div
-              class="mt-20  m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap "
+              class="md:mt-20  m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap sm:h-full overflow-x-hidden"
             >
               <div v-for="(category,index) in categoryAll" :key="category.nameNote">
                 <div
@@ -908,9 +908,29 @@ const AddToCatagories = () => {
           </div>
         </div>
       </div>
-
+      <!-- category sm -->
+      
+      
       <!-- ห้ามยุ่ง -->
     </div>
+    <div v-show="category" class="md:hidden"  :class="darks === 0 ? 'dark' : ''">
+        <div class="flex bottom-0 absolute w-full">
+        <button
+              @click="toggleModal('AddCata')"
+              :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-600/80'"
+              class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
+            >
+              เพิ่มชุดคำศัพท์
+            </button>
+            <button
+              :class="!DeleteIcon || categoryAll.length===0 ? ' bg-red-600/80 dark:bg-red-900' : 'bg-slate-600'"
+              @click="DeleteIconShow"
+              class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
+            >
+              ลบชุดคำศัพท์
+            </button>
+      </div>
+      </div>
     <!-- theme  -->
     <footer class="footer  footer-center bg-base-200 text-base-content  dark:bg-slate-700 dark:text-white"  :class="darks === 0 ? 'dark' : ''">
   <div class="ml-8 flex ">
