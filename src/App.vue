@@ -87,6 +87,7 @@ const hidnev = () => {
   }
 };
 var add = ref(false);
+var aboutus = ref(false);
 var show = ref(false);
 var gamepage = ref(false);
 var category = ref(false);
@@ -101,6 +102,7 @@ var showbt = ref(false);
 var result= ref(false)
 var contents=ref(false)
 var anserlong=ref(false)
+var howto=ref(false)
 const display = (disp) => {
   if (disp === 1) {
     add.value = true;
@@ -132,6 +134,7 @@ const showcontent=()=>{
   contents.value=!contents.value
   display(1)
 }
+
 var question = ref([]);
 var answercheck = [];
 var questionshow = [];
@@ -934,10 +937,15 @@ const AddToCatagories = () => {
     <!-- theme  -->
     <footer class="footer  footer-center bg-base-200 text-base-content  dark:bg-slate-700 dark:text-white"  :class="darks === 0 ? 'dark' : ''">
   <div class="ml-8 flex ">
-    <a class="link link-hover">How-to-Use</a>
-    <a class="link link-hover">About Us</a>  
+    <a class="link link-hover" @click="howto=!howto">How-to-Use</a>
+    <a class="link link-hover" @click="aboutus=!aboutus">About Us</a>  
   </div> 
-  
+  <div v-show="howto">
+    <!-- เซียมเขียนตรงนี้ อันนี้ของ HOW TO -->
+  </div>
+  <div v-show="aboutus">
+    <!-- เซียมเขียนตรงนี้ อันนี้ของ aboutus -->
+  </div>
 </footer>
   </div>
 </template>
