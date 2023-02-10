@@ -522,7 +522,7 @@ const AddToCatagories = () => {
           <label class="dark:text-white">คำศัพท์</label>
           <input
             type="text"
-            class="border-b-2 ml-2 dark:bg-gray-600 dark:text-gray-100 rounded-2xl pl-3"
+            class="border-b-2 ml-2 dark:bg-gray-600 dark:text-gray-100 rounded-2xl pl-3 py-3"
             v-model="word"
             placeholder=" word...."
           />
@@ -531,7 +531,7 @@ const AddToCatagories = () => {
           <label class="dark:text-white">คำแปล</label>
           <input
             type="text"
-            class="border-b-2 ml-2 dark:bg-gray-600 dark:text-gray-100 rounded-2xl pl-3"
+            class="border-b-2 ml-2 dark:bg-gray-600 dark:text-gray-100 rounded-2xl pl-3 py-3"
             v-model="meaning"
             placeholder=" meaning..."
           />
