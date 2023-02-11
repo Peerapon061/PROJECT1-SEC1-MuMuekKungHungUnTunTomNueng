@@ -546,9 +546,9 @@ const AddToCatagories = () => {
       </div>
       <!--show -->
       <div v-show="show">
-        <div>
+        <div class="overflow-y-auto h-[37rem] md:h-[38.5rem]">
           <table class="center ml-auto mr-auto table-auto w-full">
-            <tr class="bg-gray-50 border-b-2 border-gray-400 dark:bg-gray-900">
+            <tr class="bg-gray-50 border-b-2 border-gray-400 dark:bg-gray-900 sticky top-0">
               <th class="text-gray-700 dark:text-gray-400">#No.</th>
               <th class="text-gray-700 dark:text-gray-400">Word</th>
               <th class="text-gray-700 dark:text-gray-400">Meaning</th>
@@ -560,6 +560,7 @@ const AddToCatagories = () => {
                   ? 'bg-gradient-to-r from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r '
                   : 'bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-l'
               "
+              class="overflow-auto"
             >
               <td
                 class="text-gray-700 dark:text-gray-400 text-center p-3 border-red-700"
