@@ -101,6 +101,8 @@ var showbt = ref(false);
 var result= ref(false)
 var contents=ref(false)
 var anserlong=ref(false)
+var aboutus=ref(false)
+var howtouse=ref(false)
 const display = (disp) => {
   if (disp === 1) {
     add.value = true;
@@ -938,7 +940,12 @@ const AddToCatagories = () => {
     <a class="link link-hover">How-to-Use</a>
     <a class="link link-hover">About Us</a>  
   </div> 
+  <div v-show="howtouse">
   
+  </div>
+  <div v-show="aboutus">
+
+  </div>
 </footer>
   </div>
 </template>
