@@ -1067,7 +1067,7 @@ const filterSearch=computed(()=>{
   <div class="ml-8 flex ">
     <a class="link link-hover">How-to-Use</a>
     <a class="link link-hover">About-Us</a>
-    <a href="https://forms.office.com/r/YG8aZfU1RR"  target="_blank" class="link link-hover">Bug-report</a>
+    <a href="https://forms.office.com/r/G2V9hgVbkf"  target="_blank" class="link link-hover">Bug-report</a>
   </div> 
   <div v-show="howtouse">
   
