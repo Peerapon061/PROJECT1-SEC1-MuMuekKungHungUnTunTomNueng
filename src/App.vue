@@ -661,7 +661,7 @@ const filterSearch=computed(()=>{
       </div>
       <!--show -->
       <div v-show="show">
-        <input v-model.trim="searchKeyword" class="w-full p-1 outline-none rounded-lg border border-gray-200 dark:bg-gray-600" type="text" placeholder="Type your keyword here...">
+        <input v-model.trim="searchKeyword" class="w-full p-1 outline-none rounded-lg border border-gray-200 bg-gray-200 dark:bg-gray-600" type="text" placeholder="Type your keyword here...">
         <div class="overflow-y-auto h-[37rem] md:h-[38rem]">
           <table class="center ml-auto mr-auto table-auto w-full">
             <tr class="bg-gray-50 border-b-2 border-gray-400 dark:bg-gray-900 sticky top-0">
@@ -932,7 +932,7 @@ const filterSearch=computed(()=>{
                 </div>
                <div class="overflow-y-auto h-72 mt-2 sm:h-56">
                   <div
-                    class="bg-slate-200 p-3 m-3 rounded-lg   "
+                    class="bg-slate-200 p-3 m-3 rounded-lg "
                     v-for="word in allword"
                     :key="word.word"
                   >
@@ -1014,7 +1014,7 @@ const filterSearch=computed(()=>{
             >
               <div v-for="(category,index) in categoryAll" :key="category.nameNote">
                 <div
-                  class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl"
+                  class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]"
                 >
                   <div  :id="category.nameNote"
                     :class="DeleteIcon ? 'visible' : 'invisible'"
@@ -1026,10 +1026,10 @@ const filterSearch=computed(()=>{
                       ×
                     </span>
                   </div>
-                  <div>{{ category.nameNote }}</div>
+                  <div class="text-white dark:text-white">{{ category.nameNote }}</div>
                   <button
                     @click="ListVocabByCategory(category.nameNote)"
-                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-black   mx-auto hover:bg-slate-600 hover:text-white py-2 px-4 rounded-lg "
+                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-white  mx-auto hover:bg-cyan-500 hover:text-slate-700 py-2 px-4 rounded-lg "
                   >
                     แสดงคำศัพท์ <iconBooks class="ml-2 mt-2"/>
                   </button>
