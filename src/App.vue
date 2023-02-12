@@ -24,20 +24,29 @@ const findword = (word) => {
   return allword.value.filter((x) => x.word === word);
 };
 const makewords = (word, meaning) => {
-  if (
+   if (
     word === undefined ||
     word === null ||
     word === "" ||
     meaning === undefined ||
     meaning === null ||
     meaning === ""
+    ||word==" "
+    ||meaning==" "
   ) {
     resetInput();
     notnull.value = 1;
     setTimeout(() => {
       notnull.value = 0;
     }, 2550);
-  } else if (word.length > 70 || meaning.length > 70) {
+  }else if(word.includes(" ")||meaning.includes(" ")){
+    resetInput();
+    notnulls.value = 1;
+    setTimeout(() => {
+      notnulls.value = 0;
+    }, 2550);
+  } 
+  else if (word.length > 70 || meaning.length > 70) {
     resetInput();
     nocompletex.value = 1;
     setTimeout(() => {
@@ -102,6 +111,7 @@ var result= ref(false)
 var contents=ref(false)
 var anserlong=ref(false)
 var aboutus=ref(false)
+var notnulls=ref(false)
 var howtouse=ref(false)
 var listnocomplete=ref(false)
 var addlistcomplete=ref(false)
@@ -509,6 +519,28 @@ const AddToCatagories = () => {
         </div>
       </div>
       <div
+        class="bg-red-300 border-t-4 border-red-500 rounded-b text-red-800 px-4 py-3 shadow-md"
+        v-show="notnulls"
+      >
+        <div class="flex">
+          <div class="py-1">
+            <svg
+              class="fill-current h-6 w-6 text-red-700 mr-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+              />
+            </svg>
+          </div>
+          <div>
+            <p class="font-bold">สร้างคำศัพท์ไม่สำเร็จ</p>
+            <p class="text-sm">เนื่องจากมีการเว้นช่องว่างในคำศัพท์หรือคำแปล</p>
+          </div>
+        </div>
+      </div>
+      <div
         class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
         v-show="addcomplete"
       >
@@ -742,15 +774,17 @@ const AddToCatagories = () => {
               <p class="text-red-400 flex justify-center items-center mt-4" v-show="anserlong">คำตอบขอบคุณยาวเกินไป</p>
             </div>
 
-            <div class="mt-4 mb-10" v-show="result">
+            <div class="mt-4 mb-10 " v-show="result">
+              
+            <div class="h-64 overflow-y-auto w-full">
               <table class="center ml-auto mr-auto table-auto w-full">
-            <tr class="">
-              <th class="">#No.</th>
-              <th class="">Word</th>
-              <th class="">Answer</th>
+            <tr class="sticky top-0 bg-orange-400 text-white">
+              <th class="text-center">#No.</th>
+              <th class="text-center">Word</th>
+              <th class="text-center">Answer</th>
             </tr>
             <tr
-              v-for="(word, index) in questionshow">
+              v-for="(word, index) in questionshow" class="">
               <td
                 class=" text-center p-3 border-red-700"
               >
@@ -764,6 +798,8 @@ const AddToCatagories = () => {
               </td>
             </tr>
           </table>
+          </div>
+          
             </div>
 
 
@@ -804,7 +840,7 @@ const AddToCatagories = () => {
                 <div
                   class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t"
                 >
-                  <h3 class="text-xl font-semibold">Vocabularys</h3>
+                  <h3 class="text-xl font-semibold">vocabularies</h3>
                   <button
                     class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     v-on:click="toggleModal('AddCata')"
@@ -818,10 +854,19 @@ const AddToCatagories = () => {
                 </div>
                 <!-- body -->
 
-                <div id="vocab" class="relative p-6 flex-auto">
-                  <div v-for="vocab in ListVocab">
-                    <h3>- {{ vocab.word }} แปลว่า {{ vocab.meaning }}</h3>
-                  </div>
+                <div id="vocab" class="relative  flex-auto h-80 overflow-y-auto w-80">
+                  <table class="center ml-auto mr-auto table-auto w-full">
+            <tr class="top-0 sticky bg-emerald-100 ">
+              <th class="text-emerald-400 ">#No.</th>
+              <th class="text-emerald-400 ">Word</th>
+              <th class="text-emerald-400 ">Meaning</th>
+              </tr>
+                  <tr v-for=" ( vocab, index) in ListVocab" class="  ">
+                    <td class="text-center">{{ index+1}}</td>
+                    <td class="text-center">{{ vocab.word }}</td>
+                    <td class="text-center">{{ vocab.meaning }}</td>
+                  </tr>
+                </table>
                 </div>
                 <!-- footer -->
                 <div
