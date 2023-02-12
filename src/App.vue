@@ -1021,7 +1021,7 @@ const filterSearch=computed(()=>{
                     class="w-full flex justify-end "
                   >
                   <span  @click="Deletefunction($event)" :id="category.nameNote"
-                      class="bg-transparent   text-red-900 h-8 w-9 text-4xl block outline-none focus:outline-none "
+                      class="bg-transparent   text-red-900 h-8 w-9 text-4xl block outline-none focus:outline-none cursor-pointer"
                     >
                       ×
                     </span>
