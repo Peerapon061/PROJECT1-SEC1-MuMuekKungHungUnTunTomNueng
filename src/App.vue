@@ -307,6 +307,11 @@ const AddToCatagories = () => {
     return categoryAll.value;
   }
 };
+const searchKeyword = ref('')
+const filterSearch=computed(()=>{
+  return allword.value.filter((listf)=>
+   listf.word.toLowerCase().includes(searchKeyword.value.toLowerCase()))
+})
 //
 </script>
 
@@ -656,7 +661,8 @@ const AddToCatagories = () => {
       </div>
       <!--show -->
       <div v-show="show">
-        <div class="overflow-y-auto h-[37rem] md:h-[38.5rem]">
+        <input v-model.trim="searchKeyword" class="w-full p-1 outline-none rounded-lg border border-gray-200 dark:bg-gray-600" type="text" placeholder="Type your keyword here...">
+        <div class="overflow-y-auto h-[37rem] md:h-[38rem]">
           <table class="center ml-auto mr-auto table-auto w-full">
             <tr class="bg-gray-50 border-b-2 border-gray-400 dark:bg-gray-900 sticky top-0">
               <th class="text-gray-700 dark:text-gray-400">#No.</th>
@@ -664,7 +670,7 @@ const AddToCatagories = () => {
               <th class="text-gray-700 dark:text-gray-400">Meaning</th>
             </tr>
             <tr
-              v-for="(wordlist, index) in allword"
+              v-for="(wordlist, index) in filterSearch" :key="index"
               :class="
                 index % 2 === 0
                   ? 'bg-gradient-to-r from-indigo-100 via-gray-200 to-gray-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r '
