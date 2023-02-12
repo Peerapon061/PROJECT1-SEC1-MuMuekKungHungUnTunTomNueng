@@ -36,13 +36,13 @@ const makewords = (word, meaning) => {
     notnull.value = 1;
     setTimeout(() => {
       notnull.value = 0;
-    }, 3250);
+    }, 2550);
   } else if (word.length > 70 || meaning.length > 70) {
     resetInput();
     nocompletex.value = 1;
     setTimeout(() => {
       nocompletex.value = 0;
-    }, 3250);
+    }, 2550);
   } else {
     resetInput();
     if (allword.value.length === 0) {
@@ -51,7 +51,7 @@ const makewords = (word, meaning) => {
       addcomplete.value = 1;
       setTimeout(() => {
         addcomplete.value = 0;
-      }, 3250);
+      }, 2550);
     } else {
       let check = findword(word);
       if (check.length == 0) {
@@ -60,12 +60,12 @@ const makewords = (word, meaning) => {
         addcomplete.value = 1;
         setTimeout(() => {
           addcomplete.value = 0;
-        }, 3250);
+        }, 2550);
       } else {
         nocomplete.value = 1;
         setTimeout(() => {
           nocomplete.value = 0;
-        }, 3250);
+        }, 2550);
       }
     }
   }
@@ -103,6 +103,9 @@ var contents=ref(false)
 var anserlong=ref(false)
 var aboutus=ref(false)
 var howtouse=ref(false)
+var listnocomplete=ref(false)
+var addlistcomplete=ref(false)
+var updatecomplete=ref(false)
 const display = (disp) => {
   if (disp === 1) {
     add.value = true;
@@ -148,7 +151,7 @@ const startgame = (xs) => {
     cantstart.value = 1;
     setTimeout(() => {
       cantstart.value = 0;
-    }, 3250);
+    }, 2550);
   } else {
     ans.value = "";
     result.value=false
@@ -269,19 +272,28 @@ const ListVocabByCategory = (nameNote_) => {
 const AddToCatagories = () => {
   toggleModal("AddCata");
   if (nameNote === ""||  allword.value.every(word => word.selected===false)) {
-    alert("Please , invalid name");
+    listnocomplete.value = 1;
+    setTimeout(() => {
+      listnocomplete.value = 0;
+    }, 2550);
   } else if (categoryAll.value.some((x) => x.nameNote === nameNote)) {
     let obj = categoryAll.value.find((x) => x.nameNote === nameNote);
     obj.vocabs = allword.value.filter((y) => y.selected);
-
     nameNote=''
+    updatecomplete.value = 1;
+    setTimeout(() => {
+      updatecomplete.value = 0;
+    }, 2550);
   } else {
     categoryAll.value.push({
       nameNote: nameNote,
       vocabs: allword.value.filter((wordSelected) => wordSelected.selected ),
     });
-    console.log(categoryAll.value);
     nameNote = "";
+    addlistcomplete.value = 1;
+    setTimeout(() => {
+      addlistcomplete.value = 0;
+    }, 2550);
     return categoryAll.value;
   }
 };
@@ -431,6 +443,70 @@ const AddToCatagories = () => {
         </nav>
         
         <!-- add -->
+      </div>
+      <div
+        class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+        v-show="addlistcomplete"
+      >
+        <div class="flex">
+          <div class="py-1">
+            <svg
+              class="fill-current h-6 w-6 text-teal-500 mr-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+              />
+            </svg>
+          </div>
+          <div>
+            <p class="font-bold">สร้างรายการคำศัพท์สำเร็จ</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
+        v-show="updatecomplete"
+      >
+        <div class="flex">
+          <div class="py-1">
+            <svg
+              class="fill-current h-6 w-6 text-teal-500 mr-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+              />
+            </svg>
+          </div>
+          <div>
+            <p class="font-bold">อัพเดตรายการคำศัพท์สำเร็จ</p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-red-300 border-t-4 border-red-500 rounded-b text-red-800 px-4 py-3 shadow-md"
+        v-show="listnocomplete"
+      >
+        <div class="flex">
+          <div class="py-1">
+            <svg
+              class="fill-current h-6 w-6 text-red-700 mr-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+              />
+            </svg>
+          </div>
+          <div>
+            <p class="font-bold">สร้างรายการคำศัพท์ไม่สำเร็จ</p>
+            <p class="text-sm">โปรดระบุชื่อรายการหรือคำศัพท์ที่ต้องการ</p>
+          </div>
+        </div>
       </div>
       <div
         class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
@@ -710,6 +786,7 @@ const AddToCatagories = () => {
       </div>
 
       <!-- category md-->
+      
       <div v-show="category" class="md:h-4/5 ">
         <div>
           <div
@@ -938,13 +1015,14 @@ const AddToCatagories = () => {
     <footer class="footer  footer-center bg-base-200 text-base-content  dark:bg-slate-700 dark:text-white"  :class="darks === 0 ? 'dark' : ''">
   <div class="ml-8 flex ">
     <a class="link link-hover">How-to-Use</a>
-    <a class="link link-hover">About Us</a>  
+    <a class="link link-hover">About-Us</a>
+    <a href="https://forms.office.com/r/YG8aZfU1RR"  target="_blank" class="link link-hover">Bug-report</a>
   </div> 
   <div v-show="howtouse">
   
   </div>
   <div v-show="aboutus">
-
+  
   </div>
 </footer>
   </div>
