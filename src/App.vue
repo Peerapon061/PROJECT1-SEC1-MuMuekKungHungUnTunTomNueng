@@ -14,7 +14,7 @@ function getimg(item) {
   return picture.value.replace("N", item);
 }
 let imageValue = ref(1);
-let picture = ref('./src/IMG/pictureN.png');
+let picture = ref('./pictureN.png');
 
 // "https://picsum.photos/id/3/600/400"
 // "https://picsum.photos/id/1/600/400"
@@ -42,6 +42,7 @@ const howtousefund = () => {
   } else {
     hid.value=0
     howtouse.value = true;
+    display(1)
   }
 };
 
