@@ -7,6 +7,7 @@ import iconBooks from "./components/icons/SimpleLineIconsBookOpen.vue"
 import close from './components/icons/GridiconsCross.vue'
 import "tw-elements";
 import { game } from "./game.js";
+import draggable from "vuedraggable";
 
 ///seum 
 
@@ -969,7 +970,7 @@ const filterSearch=computed(()=>{
                     v-on:click="toggleModal('AddCata')"
                   >
                     <span
-                      class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
+                      class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none "
                     >
                       ×
                     </span>
@@ -1047,7 +1048,6 @@ const filterSearch=computed(()=>{
             class="opacity-25 fixed inset-0 z-40 bg-black"
           ></div>
         </div>
-
         <div class="flex w-full md:h-full space-x-3 sm:h-auto">
           <div
             class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-200 dark:bg-slate-800 sm:hidden"
@@ -1064,7 +1064,7 @@ const filterSearch=computed(()=>{
               @click="DeleteIconShow"
               class="w-4/5 mx-auto text-white hover:bg-slate-300   hover:text-gray-600 font-bold py-2 px-4 rounded"
             >
-              ลบชุดคำศัพท์
+             จัดการชุดคำศัพท์
             </button>
           </div>
           <div
@@ -1074,33 +1074,43 @@ const filterSearch=computed(()=>{
             <!-- เพิ่ม เอาคำศัพท์ เก็บเข้า object  -->
             <!-- ทำ modal  -->
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
-            <div
-              class="md:mt-20  m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap sm:h-full overflow-x-hidden"
-            >
-              <div v-for="(category,index) in categoryAll" :key="category.nameNote">
-                <div
-                  class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]"
+            <!-- class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]" -->
+            <draggable 
+        :list="categoryAll"
+
+       :disabled="!DeleteIcon"
+        class="md:mt-20  m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap sm:h-full overflow-x-hidden"
+        ghost-class="ghost"
+
+        @start="dragging = true"
+        @end="dragging = false"
+      >
+      <template #item="{ element }" >
+        <div
+        class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2  hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]"
                 >
-                  <div  :id="category.nameNote"
+
+                  <div  :id="element.nameNote"
                     :class="DeleteIcon ? 'visible' : 'invisible'"
                     class="w-full flex justify-end "
                   >
-                  <span  @click="Deletefunction($event)" :id="category.nameNote"
+                  <span  @click="Deletefunction($event)" :id="element.nameNote"
                       class="bg-transparent   text-red-900 h-8 w-9 text-4xl block outline-none focus:outline-none cursor-pointer"
                     >
                       ×
                     </span>
                   </div>
-                  <div class="text-white dark:text-white">{{ category.nameNote }}</div>
+                  <div>{{ element.nameNote }} </div>
                   <button
-                    @click="ListVocabByCategory(category.nameNote)"
-                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-white  mx-auto hover:bg-cyan-500 hover:text-slate-700 py-2 px-4 rounded-lg "
+                    @click="ListVocabByCategory(element.nameNote)"
+                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent  border border-gray-700 text-black   mx-auto hover:bg-slate-600 hover:text-white py-2 px-4 rounded-lg "
                   >
                     แสดงคำศัพท์ <iconBooks class="ml-2 mt-2"/>
                   </button>
                 </div>
-              </div>
-            </div>
+
+        </template>
+      </draggable>
           </div>
         </div>
       </div>
