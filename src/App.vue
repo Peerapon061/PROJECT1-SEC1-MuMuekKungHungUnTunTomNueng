@@ -306,10 +306,7 @@ const CheckAlready =()=>{
 
 
 const StatusEdit = ref(false);
-const toggleEdit = () => {
-  StatusEdit.value = !StatusEdit.value;
-};
-const editVocabInCategory = () => {};
+
 
 const ListVocabByCategory = (nameNote_) => {
   toggleModal("vocab");
@@ -1077,7 +1074,6 @@ const filterSearch=computed(()=>{
             <!-- class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]" -->
             <draggable 
         :list="categoryAll"
-
        :disabled="!DeleteIcon"
         class="md:mt-20  m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap sm:h-full overflow-x-hidden"
         ghost-class="ghost"
@@ -1147,4 +1143,9 @@ const filterSearch=computed(()=>{
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
+</style>
