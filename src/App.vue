@@ -15,7 +15,7 @@ function getHowToImage(item) {
 }
 
 let imageValue = ref(1);
-let picture = ref("./src/IMG/pictureN.png");
+let picture = ref("../IMG/pictureN.png");
 
 // "https://picsum.photos/id/3/600/400"
 // "https://picsum.photos/id/1/600/400"
