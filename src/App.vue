@@ -110,20 +110,20 @@ const makewords = (word, meaning) => {
     notnull.value = 1;
     setTimeout(() => {
       notnull.value = 0;
-    }, 2550);
+    }, 1750);
   }else if(word.includes(" ")||meaning.includes(" ")){
     resetInput();
     notnulls.value = 1;
     setTimeout(() => {
       notnulls.value = 0;
-    }, 2550);
+    }, 1750);
   } 
   else if (word.length > 70 || meaning.length > 70) {
     resetInput();
     nocompletex.value = 1;
     setTimeout(() => {
       nocompletex.value = 0;
-    }, 2550);
+    }, 1750);
   } else {
     resetInput();
     if (allword.value.length === 0) {
@@ -132,7 +132,7 @@ const makewords = (word, meaning) => {
       addcomplete.value = 1;
       setTimeout(() => {
         addcomplete.value = 0;
-      }, 2550);
+      }, 1750);
     } else {
       let check = findword(word);
       if (check.length == 0) {
@@ -141,12 +141,12 @@ const makewords = (word, meaning) => {
         addcomplete.value = 1;
         setTimeout(() => {
           addcomplete.value = 0;
-        }, 2550);
+        }, 1750);
       } else {
         nocomplete.value = 1;
         setTimeout(() => {
           nocomplete.value = 0;
-        }, 2550);
+        }, 1750);
       }
     }
   }
@@ -233,7 +233,7 @@ const startgame = (xs) => {
     cantstart.value = 1;
     setTimeout(() => {
       cantstart.value = 0;
-    }, 2550);
+    }, 1750);
   } else {
     ans.value = "";
     result.value=false
@@ -356,7 +356,7 @@ const AddToCatagories = () => {
     listnocomplete.value = 1;
     setTimeout(() => {
       listnocomplete.value = 0;
-    }, 2550);
+    }, 1750);
   } else if (categoryAll.value.some((x) => x.nameNote === nameNote)) {
     let obj = categoryAll.value.find((x) => x.nameNote === nameNote);
     obj.vocabs = allword.value.filter((y) => y.selected);
@@ -364,7 +364,7 @@ const AddToCatagories = () => {
     updatecomplete.value = 1;
     setTimeout(() => {
       updatecomplete.value = 0;
-    }, 2550);
+    }, 1750);
   } else {
     categoryAll.value.push({
       nameNote: nameNote,
@@ -374,7 +374,7 @@ const AddToCatagories = () => {
     addlistcomplete.value = 1;
     setTimeout(() => {
       addlistcomplete.value = 0;
-    }, 2550);
+    }, 1750);
     return categoryAll.value;
   }
 };
