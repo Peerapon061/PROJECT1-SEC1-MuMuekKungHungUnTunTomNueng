@@ -7,6 +7,78 @@ import iconBooks from "./components/icons/SimpleLineIconsBookOpen.vue"
 import close from './components/icons/GridiconsCross.vue'
 import "tw-elements";
 import { game } from "./game.js";
+
+///seum 
+
+function getHowToImage(item) {
+  return picture.value.replace("N", item);
+}
+
+let imageValue = ref(1);
+let picture = ref("./src/IMG/pictureN.png");
+
+// "https://picsum.photos/id/3/600/400"
+// "https://picsum.photos/id/1/600/400"
+
+const nextSlide = () => {
+  if (imageValue.value >= 5) {
+    imageValue.value = 1;
+  } else {
+    imageValue.value++;
+  }
+};
+
+const previousSlide = () => {
+  if (imageValue.value <= 1) {
+    imageValue.value = 5;
+  } else {
+    imageValue.value--;
+  }
+};
+
+const howtousefund = () => {
+  if (howtouse.value == true) {
+    howtouse.value = false;
+    aboutus.value = false;
+  } else {
+    howtouse.value = true;
+    aboutus.value = false;
+  }
+};
+
+const aboutusfunc = () => {
+  if (aboutus.value == true) {
+    aboutus.value = false;
+    howtouse.value = false;
+  } else {
+    howtouse.value = false;
+    aboutus.value = true;
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
 let datas = {};
 let list = ref([]);
 const addcareall = () => {
@@ -182,8 +254,7 @@ const startgame = (xs) => {
       answercheck.push(datas[xs][x].meaning);
       questionshow.push(datas[xs][x].word);
     });
-    currentquestion.value = questionshow[noword.value];
-    
+    currentquestion.value = questionshow[noword.value];   
   }
 };
 const word = ref("");
@@ -344,6 +415,52 @@ const filterSearch=computed(()=>{
   <!-- theme -->
   <div :class="darks === 0 ? 'dark' : ''" class="font-mali" v-show="contents">
     <!-- nav -->
+    <div v-show="howtouse" class="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50 ">
+        <div class="max-w-2xl p-6 w-full h-[33rem] bg-white shadow-xl rounded-2xl">
+          <div class=" items-center justify-between text-center w-full">
+            <h3 class="text-3xl text-center w-full mb-3 text-orange-500">HOW TO USE</h3>
+            <p>STEP : <span class="text-emerald-500">{{ imageValue }}</span></p>
+          </div>
+          <img   :src="getHowToImage(imageValue)" alt="" class=" rounded-2xl  " />
+          <div class="flex w-full items-center justify-center mt-5">
+          <button
+            class="bg-red-500 hover:bg-red-900 text-white font-bold py-2 px-4 rounded"
+            @click="previousSlide()"
+          >
+           BACK
+          </button>
+          <div class="ml-10">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded "
+            @click="nextSlide()"
+          >
+            NEXT
+          </button>
+        </div>
+      </div>
+        </div>
+      </div>
+      <div v-show="aboutus" class="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
+        <div class="max-w-2xl p-6 w-96 bg-white shadow-xl">
+          <div class="flex items-center justify-between">
+            <h3 class="text-2xl">Model Title</h3>
+          </div>
+          <div class="mt-4">
+            <p class="mb-4 text-sm">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Voluptatibus qui nihil laborum quaerat blanditiis nemo explicabo
+              voluptatum ea architecto corporis quo vitae, velit temporibus
+              eaque quisquam in quis provident necessitatibus.
+            </p>
+            <button @click="isOpen = false" class="px-6 py-2 text-teal-800 border border-teal-600 rounded">
+              Cancel
+            </button>
+            <button class="px-6 py-2 ml-2 text-blue-100 bg-teal-600 rounded">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
     <div
       class="h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50"
     >
@@ -1065,16 +1182,10 @@ const filterSearch=computed(()=>{
     <!-- theme  -->
     <footer class="footer  footer-center bg-base-200 text-base-content  dark:bg-slate-700 dark:text-white"  :class="darks === 0 ? 'dark' : ''">
   <div class="ml-8 flex ">
-    <a class="link link-hover">How-to-Use</a>
-    <a class="link link-hover">About-Us</a>
+    <a class="link link-hover" @click="howtousefund()">How-to-Use</a>
+    <a class="link link-hover" @click="aboutusfunc()">About-Us</a>
     <a href="https://forms.office.com/r/G2V9hgVbkf"  target="_blank" class="link link-hover">Bug-report</a>
   </div> 
-  <div v-show="howtouse">
-  
-  </div>
-  <div v-show="aboutus">
-  
-  </div>
 </footer>
   </div>
 </template>
