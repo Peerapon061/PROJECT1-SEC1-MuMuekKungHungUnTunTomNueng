@@ -12,12 +12,16 @@ import draggable from "vuedraggable";
 import basicdata from './data/basicdata.json'
 ////////initdata
 const initdata=()=>{
-  Object.entries(basicdata).forEach((x)=>{
-    Object.entries(basicdata[x[0]]).forEach((y)=>{
-  let initword=new myword(y[0],y[1])
-  allword.value.push(initword)  
- })
-  })
+  basicdata.forEach(x=>{ 
+    let arr = []
+        x.vocabs.forEach(x=>{
+          allword.value.push(new myword(x.word,x.meaning))
+          arr.push(new myword(x.word,x.meaning))
+        
+        })
+    categoryAll.value.push({nameNote:x.Categories,vocabs:arr})
+    }
+  )
 }
 ///HOWTOUSE
 var howtouse = ref(false);
@@ -310,7 +314,7 @@ const CheckAlready = () => {
   nameNote = categorySelected.value;
   categorySelected.value = "";
 };
-const StatusEdit = ref(false);
+
 const ListVocabByCategory = (nameNote_) => {
   toggleModal("vocab");
   ListVocab.value = categoryAll.value
@@ -322,12 +326,13 @@ const AddToCatagories = () => {
   toggleModal("AddCata");
   if (
     nameNote === "" ||
-    allword.value.every((word) => word.selected === false)
+    allword.value.every((word) => word.selected === false) || nameNote.length>12 
   ) {
     listnocomplete.value = 1;
     setTimeout(() => {
       listnocomplete.value = 0;
     }, 2550);
+    nameNote = "";
   } else if (categoryAll.value.some((x) => x.nameNote === nameNote)) {
     let obj = categoryAll.value.find((x) => x.nameNote === nameNote);
     obj.vocabs = allword.value.filter((y) => y.selected);
@@ -529,7 +534,7 @@ initdata()
           </div>
           <div>
             <p class="font-bold">สร้างรายการคำศัพท์ไม่สำเร็จ</p>
-            <p class="text-sm">โปรดระบุชื่อรายการหรือคำศัพท์ที่ต้องการ</p>
+            <p class="text-sm">พบข้อผิดพลาดที่ชื่อคำศัพท์หรือรายการคำศัพท์</p>
           </div>
         </div>
       </div>

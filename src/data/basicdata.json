@@ -1,37 +1,36 @@
-{ 
-    "verb":{
-    "read":"อ่าน",
-    "write":"เขียน",
-    "Learn": "เรียน",
-    "Eat":"กิน",
-    "Drink":"ดื่ม",
-    "Teach": "สอน",
-    "Watch":"ดู",
-    "Like":"ชอบ ",
-    "See":"เห็น ",
-    "Need":"ต้องการ"
-    },
-    "animal":{
-      "alligator":"จระเข้",
-      "ant":"มด",  
-      "bat":"ค้างคาว",  
-      "bear":"หมี",  
-      "camel":"อูฐ",  
-      "deer":"กวาง",  
-      "dog":"สุนัข",  
-      "donkey":"ลา",  
-      "dragonfly":"แมลงปอ",  
-      "duck":"เป็ด"  
-    },
-    "vehicle":{
-        "Ambulance":"รถพยาบาล",
-        "Airplane":"เครื่องบิน",
-        "Boat":"เรือ",
-        "Bus":"รสบัส",
-        "Bicycle":"จักรยาน",
-        "Car":"รถ",
-        "Forklift":"รถยก",
-        "Helicopter":"เฮลิคอปเตอร์",
-        "Motorcycle":"รถจักรยานยนต์"
-    }
-}
+ 
+    [{"Categories":"verb",
+    "vocabs":[{ "word":"read","meaning":"อ่าน"},
+  
+    {"word":"write","meaning":"เขียน"},
+    {"word":"Learn","meaning":"เรียน"},
+    {"word":"Eat","meaning":"กิน"},
+    {"word":"Drink","meaning":"ดื่ม"},
+    {"word":"Teach","meaning": "สอน"},
+    {"word":"Watch","meaning":"ดู"},
+    {"word":"Like","meaning":"ชอบ "},
+    {"word":"See","meaning":"เห็น "},
+    {"word":"Need","meaning":"ต้องการ"}
+    ]
+  }
+  ,
+  {"Categories":"animal",
+  "vocabs":[
+    {"word":"alligator","meaning":"จระเข้"},
+     { "word":"ant","meaning":"มด"},  
+         {"word":"bat","meaning":"ค้างคาว"},  
+         {"word":"bear","meaning":"หมี"},  
+         {"word":"camel","meaning":"อูฐ"},  
+         {"word":"deer","meaning":"กวาง"},  
+         {"word":"dog","meaning":"สุนัข"},  
+         {"word":"donkey","meaning":"ลา"},  
+         {"word":"dragonfly","meaning":"แมลงปอ"},  
+         {"word":"duck","meaning":"เป็ด"}  
+       
+  ]
+
+  }
+]
+    
+    
+
