@@ -1,0 +1,37 @@
+{ 
+    "verb":{
+    "read":"อ่าน",
+    "write":"เขียน",
+    "Learn": "เรียน",
+    "Eat":"กิน",
+    "Drink":"ดื่ม",
+    "Teach": "สอน",
+    "Watch":"ดู",
+    "Like":"ชอบ ",
+    "See":"เห็น ",
+    "Need":"ต้องการ"
+    },
+    "animal":{
+      "alligator":"จระเข้",
+      "ant":"มด",  
+      "bat":"ค้างคาว",  
+      "bear":"หมี",  
+      "camel":"อูฐ",  
+      "deer":"กวาง",  
+      "dog":"สุนัข",  
+      "donkey":"ลา",  
+      "dragonfly":"แมลงปอ",  
+      "duck":"เป็ด"  
+    },
+    "vehicle":{
+        "Ambulance":"รถพยาบาล",
+        "Airplane":"เครื่องบิน",
+        "Boat":"เรือ",
+        "Bus":"รสบัส",
+        "Bicycle":"จักรยาน",
+        "Car":"รถ",
+        "Forklift":"รถยก",
+        "Helicopter":"เฮลิคอปเตอร์",
+        "Motorcycle":"รถจักรยานยนต์"
+    }
+}
