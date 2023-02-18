@@ -626,7 +626,7 @@ initdata()
         <input v-model.trim="searchKeyword"
           class="w-full p-1 outline-none rounded-lg border border-gray-200 bg-gray-200 dark:bg-gray-600" type="text"
           placeholder="Type your keyword here..." />
-        <div class="overflow-y-auto h-[37rem] md:h-[51rem]">
+        <div class="overflow-y-auto h-[37rem] md:h-[38rem]">
           <table class="center ml-auto mr-auto table-auto w-full">
             <tr class="bg-gray-50 border-b-2 border-gray-400 dark:bg-gray-900 sticky top-0">
               <th class="text-gray-700 dark:text-gray-400">#No.</th>
