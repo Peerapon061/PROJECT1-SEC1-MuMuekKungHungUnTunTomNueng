@@ -1,6 +1,6 @@
 <script setup>
 //import
-import { ref, computed } from "vue";
+import { ref, computed ,onBeforeMount} from "vue";
 import { myword } from "./makeword.js/";
 import iconmoon from "./components/icons/TypcnWeatherNight.vue";
 import iconsun from "./components/icons/TypcnWeatherSunny.vue";
@@ -8,21 +8,38 @@ import iconBooks from "./components/icons/SimpleLineIconsBookOpen.vue";
 import close from "./components/icons/GridiconsCross.vue";
 import "tw-elements";
 import { game } from "./game.js";
-import draggable from "vuedraggable";
 import basicdata from './data/basicdata.json'
-////////initdata
-const initdata=()=>{
-  basicdata.forEach(x=>{ 
+
+
+
+
+onBeforeMount(()=>{
+
+    
+
+if(allword.value.length===0||categoryAll.value.length===0){
+     basicdata.forEach(x=>{ 
     let arr = []
         x.vocabs.forEach(x=>{
+        
           allword.value.push(new myword(x.word,x.meaning))
           arr.push(new myword(x.word,x.meaning))
         
         })
     categoryAll.value.push({nameNote:x.Categories,vocabs:arr})
     }
-  )
+     )
 }
+  
+})
+
+
+
+
+
+
+
+
 ///HOWTOUSE
 var howtouse = ref(false);
 function getimg(item) {
@@ -67,6 +84,7 @@ var nocompletex = ref(false);
 var notnull = ref(false);
 var notnulls = ref(false);
 let allword = ref([]);
+
 const findword = (word) => {
   return allword.value.filter((x) => x.word === word);
 };
@@ -289,6 +307,7 @@ var listnocomplete = ref(false);
 var addlistcomplete = ref(false);
 var updatecomplete = ref(false);
 const categoryAll = ref([]);
+
 const showModal = ref({ window: false, AddCata: false, vocab: false });
 let ListVocab = ref([]);
 const DeleteIcon = ref(false);
@@ -315,7 +334,7 @@ const CheckAlready = () => {
   categorySelected.value = "";
 };
 
-const ListVocabByCategory = (nameNote_) => {
+const ListVocabByCategory = (nameNote_) => {    
   toggleModal("vocab");
   ListVocab.value = categoryAll.value
     .filter((category) => category.nameNote === nameNote_)
@@ -351,16 +370,17 @@ const AddToCatagories = () => {
     setTimeout(() => {
       addlistcomplete.value = 0;
     }, 2550);
-    return categoryAll.value;
+    
   }
 };
 const searchKeyword = ref("");
 const filterSearch = computed(() => {
+  console.log(allword.value);
   return allword.value.filter((listf) =>
-    listf.word.toLowerCase().includes(searchKeyword.value.toLowerCase())
+    listf.word.toLowerCase().includes(searchKeyword.value.toLowerCase() )
   );
 });
-initdata()
+
 </script>
 
 <template><!-- mainnnnnn -->
@@ -894,6 +914,33 @@ initdata()
             <!-- ทำ modal  -->
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
             <!-- class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]" -->
+            <div  class="md:flex flex-wrap mt-20 m-auto w-4/5 justify-center h-4/5 overflow-y-auto sm:h-full overflow-x-hidden" > 
+            <div v-for="element in categoryAll" :key="category.nameNote" >
+            
+              <div
+                  class="flex flex-col justify-between items-center text-2xl w-72 h-44 m-2 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]">
+                  <div :id="element.nameNote" :class="DeleteIcon ? 'visible' : 'invisible'"
+                    class="w-full flex justify-end">
+                    <span @click="Deletefunction($event)" :id="element.nameNote"
+                      class="bg-transparent text-red-900 h-8 w-9 text-4xl block outline-none focus:outline-none cursor-pointer">
+                      ×
+                    </span>
+                  </div>
+                  <div>{{ element.nameNote }}</div>
+                  <button @click="ListVocabByCategory(element.nameNote)"
+                    class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent border border-gray-700 text-black mx-auto hover:bg-slate-600 hover:text-white py-2 px-4 rounded-lg">
+                    แสดงคำศัพท์
+                    <iconBooks class="ml-2 mt-2" />
+                  </button>
+                </div>
+
+
+            </div>
+          </div>
+            
+            
+            
+<!--             
             <draggable :list="categoryAll" :disabled="!DeleteIcon"
               class="md:mt-20 m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap sm:h-full overflow-x-hidden"
               ghost-class="ghost" @start="dragging = true" @end="dragging = false">
@@ -915,7 +962,10 @@ initdata()
                   </button>
                 </div>
               </template>
-            </draggable>
+            </draggable> -->
+
+
+
           </div>
         </div>
       </div>
