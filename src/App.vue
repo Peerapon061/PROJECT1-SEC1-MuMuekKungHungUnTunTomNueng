@@ -1,6 +1,6 @@
 <script setup>
 //import
-import { ref, computed ,onBeforeMount,onBeforeUpdate } from "vue";
+import { ref, computed ,onBeforeMount} from "vue";
 import { myword } from "./makeword.js/";
 import iconmoon from "./components/icons/TypcnWeatherNight.vue";
 import iconsun from "./components/icons/TypcnWeatherSunny.vue";
@@ -9,16 +9,14 @@ import close from "./components/icons/GridiconsCross.vue";
 import "tw-elements";
 import { game } from "./game.js";
 import basicdata from './data/basicdata.json'
-import { CookieUtil } from "./CookieUtil.js"
+
 
 
 
 onBeforeMount(()=>{
 
-    allword.value =JSON.parse(CookieUtil.get('allword'))??[]
-  categoryAll.value = JSON.parse(CookieUtil.get('categoryAll'))??[]
-   console.log(allword.value);
-          console.log(categoryAll.value);
+    
+
 if(allword.value.length===0||categoryAll.value.length===0){
      basicdata.forEach(x=>{ 
     let arr = []
@@ -36,14 +34,11 @@ if(allword.value.length===0||categoryAll.value.length===0){
 })
 
 
-onBeforeUpdate(()=>{
-  CookieUtil.set('allword',JSON.stringify(allword.value))
-  CookieUtil.set('categoryAll',JSON.stringify(categoryAll.value))
-})
 
 
 
-////////initdata
+
+
 
 ///HOWTOUSE
 var howtouse = ref(false);
