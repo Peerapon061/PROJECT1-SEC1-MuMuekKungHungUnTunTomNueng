@@ -918,7 +918,7 @@ const filterSearch = computed(() => {
             <div v-for="element in categoryAll" :key="category.nameNote" >
             
               <div
-                  class="flex flex-col justify-between items-center text-2xl w-72 h-44 m-2 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]">
+                  class="mb-auto flex flex-col justify-between items-center text-2xl w-72 h-44 m-2 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]">
                   <div :id="element.nameNote" :class="DeleteIcon ? 'visible' : 'invisible'"
                     class="w-full flex justify-end">
                     <span @click="Deletefunction($event)" :id="element.nameNote"
@@ -932,6 +932,7 @@ const filterSearch = computed(() => {
                     แสดงคำศัพท์
                     <iconBooks class="ml-2 mt-2" />
                   </button>
+               
                 </div>
 
 
