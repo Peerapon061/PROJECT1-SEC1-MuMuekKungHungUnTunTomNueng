@@ -991,7 +991,7 @@ const filterSearch = computed(() => {
     </div>
     <!-- theme  -->
     <footer class="footer footer-center bg-base-200 text-base-content dark:bg-slate-700 dark:text-white"
-      :class="darks === 0 ? 'dark' : ''">
+      :class="darks === 0 ? 'dark' : ''" v-show="add||gamepage">
       <div class="ml-8 flex">
         <a class="link link-hover" @click="howtousefund()">วิธีการใช้งาน</a>
         <a href="https://forms.office.com/r/G2V9hgVbkf" target="_blank" class="link link-hover">รายงานข้อผิดพลาด</a>
