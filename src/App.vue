@@ -647,7 +647,7 @@ const filterSearch = computed(() => {
         </div>
       </div>
       <!--show -->
-      <div v-show="show" :class="hid==1?'hidden':''">
+      <div v-show="show" :class="hid==1?'sm:hidden':''">
         <input v-model.trim="searchKeyword"
           class="w-full p-1 outline-none rounded-lg border border-gray-200 bg-gray-200 dark:bg-gray-600" type="text"
           placeholder="Type your keyword here..." />
@@ -909,7 +909,7 @@ const filterSearch = computed(() => {
               จัดการชุดคำศัพท์
             </button>
           </div>
-          <div class="flex flex-col relative h-full top-10 m-auto w-4/5 bg-white/30 font-bold sm:w-full sm:h-[29.5rem] " :class="hid==1?'hidden':''">
+          <div class="flex flex-col relative h-full top-10 m-auto w-4/5 bg-white/30 font-bold sm:w-full sm:h-[29.5rem] " :class="hid==1?'sm:hidden':''">
             <!-- เพิ่ม เอาคำศัพท์ เก็บเข้า object  -->
             <!-- ทำ modal  -->
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
