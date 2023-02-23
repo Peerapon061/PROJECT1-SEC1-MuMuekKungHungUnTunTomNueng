@@ -33,13 +33,6 @@ if(allword.value.length===0||categoryAll.value.length===0){
   
 })
 
-
-
-
-
-
-
-
 ///HOWTOUSE
 var howtouse = ref(false);
 function getimg(item) {
@@ -78,11 +71,11 @@ const howtousefund = () => {
 
 //
 ///add word
-var addcomplete = ref(false);
-var nocomplete = ref(false);
-var nocompletex = ref(false);
-var notnull = ref(false);
-var notnulls = ref(false);
+var addcomplete = ref(false); //แอดสำเร็จ
+var nocomplete = ref(false); //มีอยู่เเล้ว
+var nocompletex = ref(false); //ยาวเกินไป
+var notnull = ref(false); //กรอกศัพท์ไม่ครบ
+var notnulls = ref(false);//มีช่องว่าง
 let allword = ref([]);
 
 const findword = (word) => {
@@ -92,12 +85,10 @@ const makewords = (word, meaning) => {
   if (
     word === undefined ||
     word === null ||
-    word === "" ||
+    word.trim().length === 0 ||
     meaning === undefined ||
     meaning === null ||
-    meaning === "" ||
-    word == " " ||
-    meaning == " "
+    meaning.trim().length === 0 
   ) {
     resetInput();
     notnull.value = 1;
@@ -118,14 +109,6 @@ const makewords = (word, meaning) => {
     }, 2550);
   } else {
     resetInput();
-    if (allword.value.length === 0) {
-      let x = new myword(word.trim(), meaning.trim());
-      allword.value.push(x);
-      addcomplete.value = 1;
-      setTimeout(() => {
-        addcomplete.value = 0;
-      }, 2550);
-    } else {
       let check = findword(word);
       if (check.length == 0) {
         let x = new myword(word.trim(), meaning.trim());
@@ -140,7 +123,6 @@ const makewords = (word, meaning) => {
           nocomplete.value = 0;
         }, 2550);
       }
-    }
   }
 };
 ////////theme//////////////
@@ -168,7 +150,6 @@ var show = ref(false);
 var gamepage = ref(false);
 var category = ref(false);
 var contents = ref(false);
-
 const display = (disp) => {
   if (disp === 1) {
     add.value = true;
@@ -200,23 +181,22 @@ const showcontent = () => {
   contents.value = !contents.value;
   display(1);
 };
-
 //////game////////
-var cantstart = ref(false);
-var result = ref(false);
-var modalgame = ref(false);
-var nextbt = ref(true);
-var showbt = ref(false);
-var anserlong = ref(false);
-var question = ref([]);
+var cantstart = ref(false); // หน้า alert ไม่สามารถเริ่มเกมได้
+var result = ref(false); //ผลคะเเนนใน modal
+var modalgame = ref(false); // หน้า modal เล่นเกม 
+var nextbt = ref(true); // หน้า ปุ่มถัดไป 
+var showbt = ref(false); // หน้ากดเพื่อเเสดงผลลัพท์
+var anserlong = ref(false); //เเสดง คำตอบยาว
+var question = ref([]); // list ของคำถาม
 var answercheck = [];
 var questionshow = [];
 var useranswer = [];
-var noword = ref(0);
-var totalscore = ref(0);
-var currentquestion = ref();
-var currentquestionnum = ref(1);
-let score = ref(0);
+var noword = ref(0); // จำนวนคำศัพท์
+var totalscore = ref(0); // คะแนนทั้งหมด
+var currentquestion = ref(); //คำถามปัจจุบัน
+var currentquestionnum = ref(1); // ข้อของคำถามปัจจุบัน
+let score = ref(0); // คะแนน
 const startgame = (xs) => {
   if (xs === undefined) {
     cantstart.value = 1;
@@ -253,7 +233,6 @@ let list = ref([]);
 const addcareall = () => {
   list.value = [];
   datas.value = {};
-  
   categoryAll.value.forEach((x) => {
     list.value.push(x.nameNote);
     datas[x.nameNote] = x.vocabs;
@@ -339,7 +318,7 @@ const ListVocabByCategory = (nameNote_) => {
   ListVocab.value = categoryAll.value
     .filter((category) => category.nameNote === nameNote_)
     .map((x) => x.vocabs)
-    .flat(); //งง
+    .flat();
 };
 const AddToCatagories = () => {
   toggleModal("AddCata");
@@ -380,10 +359,11 @@ const filterSearch = computed(() => {
     listf.word.toLowerCase().includes(searchKeyword.value.toLowerCase() )
   );
 });
-
 </script>
 
-<template><!-- mainnnnnn -->
+
+<template>
+<!-- mainnnnnn -->
   <div v-show="!contents">
     <div class="relative flex items-center justify-center h-screen overflow-hidden">
       <div class="relative z-30 bg-black bg-opacity-30">
@@ -432,7 +412,6 @@ const filterSearch = computed(() => {
         </div>
       </div>
     </div>
-
     <div
       class="h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-600 dark:bg-gradient-to-r bg-gradient-to-l from-indigo-100 via-gray-200 to-gray-50">
       <div>
@@ -499,12 +478,9 @@ const filterSearch = computed(() => {
                   <label class="swap swap-rotate">
                     <!-- this hidden checkbox controls the state -->
                     <input type="checkbox" @click="themes()" />
-
                     <!-- sun icon -->
-
                     <iconsun class="swap-off fill-current"></iconsun>
                     <!-- moon icon -->
-
                     <iconmoon class="swap-on fill-current"></iconmoon>
                   </label>
                 </li>
@@ -512,7 +488,6 @@ const filterSearch = computed(() => {
             </div>
           </div>
         </nav>
-
         <!-- add -->
       </div>
       <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md"
@@ -674,11 +649,6 @@ const filterSearch = computed(() => {
               </td>
             </tr>
           </table>
-          <!-- <ul>
-        <li v-for="word in allword">
-          </div>
-        </li>
-      </ul> -->
         </div>
       </div>
       <!-- game -->
@@ -714,7 +684,6 @@ const filterSearch = computed(() => {
             เริ่มเกม
           </button>
         </div>
-
         <div v-show="modalgame" class="absolute inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50">
           <div class="max-w-2xl p-6 w-96 bg-white shadow-xl">
             <div class="flex items-center justify-between border-b-2 pb-3">
@@ -741,7 +710,6 @@ const filterSearch = computed(() => {
                 คำตอบขอบคุณยาวเกินไป
               </p>
             </div>
-
             <div class="mt-4 mb-10" v-show="result">
               <div class="h-64 overflow-y-auto w-full">
                 <table class="center ml-auto mr-auto table-auto w-full">
@@ -768,7 +736,6 @@ const filterSearch = computed(() => {
                 </table>
               </div>
             </div>
-
             <button class="px-6 py-2 ml-28 my-16 text-blue-100 bg-teal-600 rounded" @click="showresault()"
               v-show="showbt">
               ดูผลลัพท์
@@ -779,9 +746,7 @@ const filterSearch = computed(() => {
           </div>
         </div>
       </div>
-
       <!-- category md-->
-
       <div v-show="category" class="md:h-4/5">
         <div>
           <div v-if="showModal.window"
@@ -864,7 +829,6 @@ const filterSearch = computed(() => {
                     <div class="bg-slate-200 p-3 m-3 rounded-lg" v-for="word in allword" :key="word.word">
                       <input type="checkbox" id="word.word" value="word" v-model="word.selected" />
                       <label for="reading">{{ word.word }} = {{ word.meaning }}</label>
-
                       <br />
                     </div>
                   </div>
@@ -872,9 +836,7 @@ const filterSearch = computed(() => {
                     selectWord : {{ checkedActivities }}
                   </div>
                 </div>
-
                 <!-- Modal view vocab -->
-
                 <!--footer-->
                 <div class="flex items-center justify-end space-x-4 p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
@@ -916,7 +878,6 @@ const filterSearch = computed(() => {
             <!-- class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]" -->
             <div  class="md:flex flex-wrap mt-20 m-auto w-4/5 justify-center h-4/5 overflow-y-auto sm:h-full overflow-x-hidden" > 
             <div v-for="element in categoryAll" :key="category.nameNote" >
-            
               <div
                   class="mb-auto flex flex-col justify-between items-center text-2xl w-72 h-44 m-2 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]">
                   <div :id="element.nameNote" :class="DeleteIcon ? 'visible' : 'invisible'"
@@ -932,15 +893,9 @@ const filterSearch = computed(() => {
                     แสดงคำศัพท์
                     <iconBooks class="ml-2 mt-2" />
                   </button>
-               
                 </div>
-
-
             </div>
-          </div>
-            
-            
-            
+          </div>      
 <!--             
             <draggable :list="categoryAll" :disabled="!DeleteIcon"
               class="md:mt-20 m-auto w-4/5 justify-center h-4/5 overflow-y-auto flex flex-wrap sm:h-full overflow-x-hidden"
@@ -964,12 +919,8 @@ const filterSearch = computed(() => {
                 </div>
               </template>
             </draggable> -->
-
-
-
           </div>
         </div>
-     
         <div v-show="category" class="md:hidden" :class="[darks === 0 ? 'dark' : '',hid==1?'hidden':'']" >
       <div class=" flex bottom-0 absolute w-full">
         <button @click="toggleModal('AddCata')" :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-600/80'"
@@ -988,10 +939,8 @@ const filterSearch = computed(() => {
     </div>
       </div>
       <!-- category sm -->
-
       <!-- ห้ามยุ่ง -->
     </div>
-    
     <!-- theme  -->
     <footer class="footer footer-center bg-base-200 text-base-content dark:bg-slate-700 dark:text-white"
       :class="[darks === 0 ? 'dark' : '',category==true?'hidden':'']" >
@@ -1002,7 +951,6 @@ const filterSearch = computed(() => {
     </footer>
   </div>
 </template>
-
 <style scoped>
 .ghost {
   opacity: 0.5;
