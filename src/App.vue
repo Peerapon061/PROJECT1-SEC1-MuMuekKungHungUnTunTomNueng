@@ -253,7 +253,7 @@ let list = ref([]);
 const addcareall = () => {
   list.value = [];
   datas.value = {};
-  let ssss = {};
+  
   categoryAll.value.forEach((x) => {
     list.value.push(x.nameNote);
     datas[x.nameNote] = x.vocabs;
