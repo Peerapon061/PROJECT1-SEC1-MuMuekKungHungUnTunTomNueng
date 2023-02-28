@@ -3,6 +3,7 @@
 import { ref, computed ,onBeforeMount} from "vue";
 import { myword } from "./makeword.js/";
 import iconmoon from "./components/icons/TypcnWeatherNight.vue";
+import iconEdit from "./components/icons/UilEdit.vue";
 import iconsun from "./components/icons/TypcnWeatherSunny.vue";
 import iconBooks from "./components/icons/SimpleLineIconsBookOpen.vue";
 import close from "./components/icons/GridiconsCross.vue";
@@ -197,7 +198,7 @@ var totalscore = ref(0); // คะแนนทั้งหมด
 var currentquestion = ref(); //คำถามปัจจุบัน
 var currentquestionnum = ref(1); // ข้อของคำถามปัจจุบัน
 let score = ref(0); // คะแนน
-const startgame = (xs) => {
+const startgame = (xs) => { //xs คือ ค่าที่ใส่ input
   if (xs === undefined) {
     cantstart.value = 1;
     setTimeout(() => {
@@ -214,16 +215,16 @@ const startgame = (xs) => {
     modalgame.value = true;
     console.log(xs);
     let newgame = new game(datas[xs]);
-    question.value = newgame.createdgame();
-    totalscore.value = newgame.score;
+    question.value = newgame.createdgame(); //เก็บตำแหน่ง array ที่เก็บในคำศัพท์ชุดนั้น 
+    totalscore.value = newgame.score; 
     answercheck = [];
     questionshow = [];
     useranswer = [];
     question.value.forEach((x) => {
-      answercheck.push(datas[xs][x].meaning);
-      questionshow.push(datas[xs][x].word);
+      answercheck.push(datas[xs][x].meaning); //เอา ค่าในตำแหน่ง Array เอาคำตอบ
+      questionshow.push(datas[xs][x].word); // เอาค่า ในตำแหน่ง Arr  คำถาม/คำศัพท์
     });
-    currentquestion.value = questionshow[noword.value];
+    currentquestion.value = questionshow[noword.value]; //ยัดคำถามแรก
   }
 };
 const word = ref("");
@@ -287,7 +288,7 @@ var addlistcomplete = ref(false);
 var updatecomplete = ref(false);
 const categoryAll = ref([]);
 
-const showModal = ref({ window: false, AddCata: false, vocab: false });
+const showModal = ref({ window: false, AddCata: false, vocab: false ,EditNote:false });
 let ListVocab = ref([]);
 const DeleteIcon = ref(false);
 const DeleteIconShow = () => {
@@ -305,16 +306,29 @@ const checkedActivities = computed(() => {
 const toggleModal = (id) => {
   showModal.value["window"] = !showModal.value["window"];
   showModal.value[id] = !showModal.value[id];
+  TargetCard.value=""
 };
 const categorySelected = ref("");
 const NameNoteTyping = ref();
 const CheckAlready = () => {
+  
+  allword.value.forEach(x=>x.selected=false)
+  let listCategorySelected  = (categoryAll.value.find(cata=> cata.nameNote === categorySelected.value)).vocabs.map(y=>y.word)
+  allword.value.forEach(x=>{
+    
+    if( listCategorySelected.includes(x.word) ){ 
+    x.selected = true 
+    }
+  } )
   nameNote = categorySelected.value;
-  categorySelected.value = "";
+  categorySelected.value = ""; 
+
+
 };
 
 const ListVocabByCategory = (nameNote_) => {    
   toggleModal("vocab");
+  TargetCard.value = 
   ListVocab.value = categoryAll.value
     .filter((category) => category.nameNote === nameNote_)
     .map((x) => x.vocabs)
@@ -324,7 +338,7 @@ const AddToCatagories = () => {
   toggleModal("AddCata");
   if (
     nameNote === "" ||
-    allword.value.every((word) => word.selected === false) || nameNote.length>12 
+    allword.value.every((word) => word.selected === false) || nameNote.length>18
   ) {
     listnocomplete.value = 1;
     setTimeout(() => {
@@ -336,6 +350,7 @@ const AddToCatagories = () => {
     obj.vocabs = allword.value.filter((y) => y.selected);
     nameNote = "";
     updatecomplete.value = 1;
+    allword.value.forEach(x=>x.selected=false)
     setTimeout(() => {
       updatecomplete.value = 0;
     }, 2550);
@@ -345,6 +360,7 @@ const AddToCatagories = () => {
       vocabs: allword.value.filter((wordSelected) => wordSelected.selected),
     });
     nameNote = "";
+   allword.value.forEach(x=>x.selected=false)
     addlistcomplete.value = 1;
     setTimeout(() => {
       addlistcomplete.value = 0;
@@ -352,6 +368,53 @@ const AddToCatagories = () => {
     
   }
 };
+
+  // Edit Category
+  const TargetCard = ref()
+  const EditFunction =(event)=> { 
+    toggleModal("EditNote"); 
+    TargetCard.value = event.target.parentElement
+    while( TargetCard.value.id.length === 0 ){ 
+      TargetCard.value = TargetCard.value.parentElement 
+    }
+  }
+
+
+  const EditColor = (event)=>{ 
+  
+
+    if(event.target.id === "yellow"){
+      console.log(TargetCard.value);
+      TargetCard.value.style.backgroundColor=  "palegoldenrod"
+      
+    }
+    else if(event.target.id === "green"){
+      console.log(TargetCard.value);
+      TargetCard.value.style.backgroundColor = "darkseagreen"
+      //bg-green-200
+     
+    }
+    else if(event.target.id === "pink"){
+      console.log(TargetCard.value);
+      TargetCard.value.style.backgroundColor = "pink"
+      // bg-pink-200
+    
+    }
+    else {
+      console.log(TargetCard.value);
+      TargetCard.value.style.backgroundColor = "skyblue"
+      //bg-blue-200
+    
+    }
+
+  }
+
+
+  // <div    class=" w-8 rounded-full  bg-amber-300">     </div>
+  //                   <div    class=" w-8 rounded-full  bg-green-200">     </div>
+  //                   <div    class=" w-8 rounded-full  bg-pink-200">     </div>
+  //                   <div   class=" w-8 rounded-full  bg-blue-200">     </div>
+// end of category
 const searchKeyword = ref("");
 const filterSearch = computed(() => {
   console.log(allword.value);
@@ -364,8 +427,8 @@ const filterSearch = computed(() => {
 
 <template>
 <!-- mainnnnnn -->
-  <div v-show="!contents">
-    <div class="relative flex items-center justify-center h-screen overflow-hidden">
+  <div v-show="!contents"> 
+    <div class="relative flex items-center  justify-center h-screen overflow-hidden"   >
       <div class="relative z-30 bg-black bg-opacity-30">
         <div class="text-white text-center h-screen w-screen flex flex-col justify-center items-center">
           <h1 class="font-extrabold md:text-8xl sm:text-6xl font-mali drop-shadow-2xl">
@@ -746,29 +809,24 @@ const filterSearch = computed(() => {
           </div>
         </div>
       </div>
-      <!-- category md-->
+      <!-- Category Page -->
       <div v-show="category" class="md:h-4/5">
+        <!-- Window Page -->
         <div>
-          <div v-if="showModal.window"
+          <div v-show="showModal.window"
             class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
             <div class="relative w-auto my-6 mx-auto max-w-6xl">
-              <!--content-->
-              <!-- คอนเท้นList -->
-              <div v-if="showModal.vocab"
+              <!--content All ... -->
+
+               <!-- Show vocabs -->
+              <div v-show="showModal.vocab"
                 class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none h-auto">
                 <!--header-->
                 <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 class="text-xl font-semibold">vocabularies</h3>
-                  <button
-                    class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    v-on:click="toggleModal('AddCata')">
-                    <span
-                      class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
+           
                 </div>
-                <!-- body -->
+                 <!-- body vocabs -->
 
                 <div id="vocab" class="relative flex-auto h-80 overflow-y-auto w-80">
                   <table class="center ml-auto mr-auto table-auto w-full">
@@ -792,12 +850,13 @@ const filterSearch = computed(() => {
                     Close
                   </button>
                 </div>
-                <!--  -->
               </div>
-              <!-- Add cata -->
-              <div v-if="showModal.AddCata"
+                <!-- End of view vocabs -->
+              
+              <!-- Add category -->
+              <div v-show="showModal.AddCata"
                 class="border-0 rounded-lg shadow-lg relative md:flex md:flex-col w-full bg-white outline-none focus:outline-none sm:w-auto">
-                <!--header-->
+                <!--header Add category -->
                 <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 class="text-3xl font-semibold">List Vocabulary</h3>
                   <button
@@ -809,13 +868,13 @@ const filterSearch = computed(() => {
                     </span>
                   </button>
                 </div>
-                <!--body-->
+                <!--body Add category-->
                 <div id="AddCata" class="relative p-6 flex-auto h-96">
                   <div class="w-full md:flex space-x-2 sm:grid sm:grid-cols-1">
-                    <label for="NameNote"> ชื่อรายการคำศัพท์ที่ต้องการเพิ่ม/เเก้ไข </label>
+                    <label for="NameNote"> ชื่อหมวดหมู่ </label>
                     <input class="border-2 rounded-lg border-slate-100" type="text" ref="NameNoteTyping" id="NameNote"
                       v-model.trim="nameNote" />
-                    <span> รายการคำศัพท์ทั้งหมด : </span>
+                    <span> รายการหมวดหมู่ทั้งหมด : </span>
                     <!-- <select v-show="categoryAll.length===0">  <option disabled value="">category</option> </select> -->
                     <select class="border-2 rounded-lg border-slate-100" v-model="categorySelected"
                       @change="CheckAlready">
@@ -836,39 +895,78 @@ const filterSearch = computed(() => {
                     selectWord : {{ checkedActivities }}
                   </div>
                 </div>
-                <!-- Modal view vocab -->
-                <!--footer-->
+               
+                <!--footer Add category-->
                 <div class="flex items-center justify-end space-x-4 p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
                     class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button" v-on:click="toggleModal('AddCata')">
                     Close
                   </button>
-                  <button v-if="showModal.AddCata"
+                  <button v-show="showModal.AddCata"
                     class="text-blue-900 bg-transparent border border-solid border-sky-600 hover:bg-sky-600 hover:text-white active:bg-sky-500 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button" @click="AddToCatagories()">
                     Create New Note
                   </button>
                 </div>
               </div>
+              <!-- End of add categories -->
+
+                <!-- Edit Note   -->
+                <div v-show="showModal.EditNote"
+                class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none h-auto">
+                <!--header-->
+                <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 class="text-xl font-semibold">Edit Your Note</h3>
+                 
+                </div>
+                 <!-- body vocabs -->
+
+                <div id="EditNote" class="relative flex flex-col h-80 overflow-y-auto w-">
+                    <div class="w-full h-1/5 flex space-x-6 bg-slate-50 border-b border-l-fuchsia-100 py-4 px-6">  
+                    <span> กรุณาเลือกสีการ์ดหมวดหมู่ :  </span>
+                    <div id="yellow" @click="EditColor"   class=" w-8 rounded-full  bg-amber-300 hover:drop-shadow-xl">     </div>
+                    <div id="green"  @click="EditColor"  class=" w-8 rounded-full  bg-green-200 hover:drop-shadow-xl">     </div>
+                    <div id="pink" @click="EditColor"    class=" w-8 rounded-full  bg-pink-200 hover:drop-shadow-xl">     </div>
+                    <div id="blue" @click="EditColor" class=" w-8 rounded-full  bg-blue-200 hover:drop-shadow-xl">     </div>
+                    </div>
+                  <div class="w-full h-4/5 flex ">  
+                    <div class="w-96 flex-col bg-white border-r border-r-slate-200"> </div>
+                    <div class="w-96 bg-white "> </div>
+                  </div>
+                </div>
+                <!-- footer -->
+                <div class="flex items-center justify-end space-x-4 p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button" v-on:click="toggleModal('EditNote')">
+                    Close
+                  </button>
+                </div>
+                
+              </div>
+            <!-- End of Edit Note -->
             </div>
           </div>
-          <div v-if="showModal.window" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div v-show="showModal.window" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </div>
+      
+        <!-- End of window page -->
+
         <div class="flex w-full md:h-full space-x-3 sm:h-auto">
           <div
             class="flex flex-col w-1/5 max-h-full py-32 space-y-10 relative top-10 bg-slate-200 dark:bg-slate-800 sm:hidden">
             <button @click="toggleModal('AddCata')" :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-600/80'"
               class="w-4/5 mx-auto text-white hover:bg-slate-300 hover:text-gray-600 font-bold py-2 px-4 rounded">
-              เพิ่มชุดคำศัพท์
+              เพิ่มหมวดหมู่
             </button>
             <button :class="
               !DeleteIcon || categoryAll.length === 0
                 ? ' bg-red-600/80 dark:bg-red-900'
                 : 'bg-slate-600'
             " @click="DeleteIconShow"
-              class="w-4/5 mx-auto text-white hover:bg-slate-300 hover:text-gray-600 font-bold py-2 px-4 rounded">
-              จัดการชุดคำศัพท์
+              class="w-4/5 mx-auto text-white hover:bg-slate-300 hover:text-gray  font-bold py-2 px-4 rounded">
+              จัดการหมวดหมู่
             </button>
           </div>
           <div class="flex flex-col relative h-full top-10 m-auto w-4/5 bg-white/30 font-bold sm:w-full sm:h-[29.5rem] " :class="hid==1?'sm:hidden':''">
@@ -877,9 +975,14 @@ const filterSearch = computed(() => {
             <!-- obj[ชื่อสมุด]=obj สมุด ประกอบด้วย Name , vocab -->
             <!-- class="flex flex-col justify-between items-center text-2xl w-72 h-44  m-2 bg-gradient-to-r from-gray-400  to-gray-200 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]" -->
             <div  class="md:flex flex-wrap mt-20 m-auto w-4/5 justify-center h-4/5 overflow-y-auto sm:h-full overflow-x-hidden" > 
-            <div v-for="element in categoryAll" :key="category.nameNote" >
-              <div
-                  class="mb-auto flex flex-col justify-between items-center text-2xl w-72 h-44 m-2 hover:drop-shadow-2xl transition duration-300 pb-4 rounded-xl bg-[url('../IMG/bright.jpg')] bg-center dark:bg-center dark:bg-top dark:bg-[url('../IMG/dark.jpg')]">
+            <div v-for= "(element,index) in categoryAll" :key="index" >
+              <div :id="element.nameNote"
+                  class="mb-auto flex flex-col text-blue-200 border-2 border-gray-300 justify-between items-center text-2xl w-72 h-52 m-2 hover:drop-shadow-2xl bg-slate-400 transition duration-300 pb-4 rounded-xl  bg-center   dark:border-gray-500">
+                  <!-- bg-[url('../IMG/bright.jpg')] -->
+                  <div :class="DeleteIcon ? 'visible' : 'invisible'"  class="w-full h-1/5 flex "> 
+                     <!-- <div class=" w-8 h-7 bg-red-50 rounded-full  m-4">  </div>
+                     <div class=" w-8 h-7 bg-red-200 rounded-full  m-4">  </div>
+                     <div class=" w-8 h-7 bg-green-200 rounded-full  m-4">  </div> -->
                   <div :id="element.nameNote" :class="DeleteIcon ? 'visible' : 'invisible'"
                     class="w-full flex justify-end">
                     <span @click="Deletefunction($event)" :id="element.nameNote"
@@ -887,11 +990,16 @@ const filterSearch = computed(() => {
                       ×
                     </span>
                   </div>
-                  <div>{{ element.nameNote }}</div>
-                  <button @click="ListVocabByCategory(element.nameNote)"
+                </div>
+                  <div class="text-blue-800">{{ element.nameNote }}</div>
+                  <button  v-show="!DeleteIcon"  @click="ListVocabByCategory(element.nameNote)"
                     class="w-4/5 flex space-x-3 justify-center text-lg bg-transparent border border-gray-700 text-black mx-auto hover:bg-slate-600 hover:text-white py-2 px-4 rounded-lg">
-                    แสดงคำศัพท์
-                    <iconBooks class="ml-2 mt-2" />
+                    <div class="flex  " > แสดงคำศัพท์ <iconBooks class="ml-2 mt-2" /> </div>
+                  </button>
+                  <button v-show="DeleteIcon"  @click="EditFunction"  
+                    class="w-4/5 flex space-x-3 justify-center text-lg inset-2  bg-transparent border border-gray-700 text-black mx-auto hover:bg-slate-600 hover:text-white py-2 px-4 rounded-lg">
+                    <div  class="flex "> แก้ไขหมวดหมู่ <iconEdit  class="ml-2 mt-2" /> </div>
+                
                   </button>
                 </div>
             </div>
@@ -925,7 +1033,7 @@ const filterSearch = computed(() => {
       <div class=" flex bottom-0 absolute w-full">
         <button @click="toggleModal('AddCata')" :class="showModal['AddCata'] ? 'bg-slate-600' : 'bg-lime-600/80'"
           class="w-4/5 mx-auto text-white hover:bg-slate-300 hover:text-gray-600 font-bold py-2 px-4 rounded">
-          เพิ่มชุดคำศัพท์
+          เพิ่มหมวดหมู่
         </button>
         <button :class="
           !DeleteIcon || categoryAll.length === 0
@@ -933,7 +1041,7 @@ const filterSearch = computed(() => {
             : 'bg-slate-600'
         " @click="DeleteIconShow"
           class="w-4/5 mx-auto text-white hover:bg-slate-300 hover:text-gray-600 font-bold py-2 px-4 rounded">
-          ลบชุดคำศัพท์
+          จัดการหมวดหมู่
         </button>
       </div>
     </div>
@@ -956,4 +1064,6 @@ const filterSearch = computed(() => {
   opacity: 0.5;
   background: #c8ebfb;
 }
+
+
 </style>
